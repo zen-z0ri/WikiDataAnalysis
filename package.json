@@ -1,0 +1,28 @@
+{
+  "name": "wiki-analysis",
+  "version": "1.0.0",
+  "description": "node.js mongo D3.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zen-z0ri/WikiDataAnalysis.git"
+  },
+  "author": "zen-z0ri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zen-z0ri/WikiDataAnalysis/issues"
+  },
+  "homepage": "https://github.com/zen-z0ri/WikiDataAnalysis#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "fullpage.js": "^2.9.4",
+    "http": "0.0.0",
+    "mongoose": "^4.9.8",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-rc.1"
+  }
+}

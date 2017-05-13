@@ -1,0 +1,226 @@
+//
+   Created by tung on 12/05/17.
+doctype html
+
+html(lang="en")
+head
+    title Simple Form to allow user input a title
+    meta(http-equiv='Content-Type'
+        content='text/html; charset=UTF-8')
+    meta(name='author'
+        content='zen-z0ri')
+    meta(name='keywords'
+        content='fullpage,jquery,single page,wikipedia,data-mining')
+    meta(name='Description'
+        content='A web app can analyze the data from wikipedia')
+    //use the fullpage template
+    link(rel='shortcut icon'
+        href='/pic/favicon.ico'
+        type='image/x-icon'
+        media='screen')
+    link(rel='stylesheet'
+        type='text/css'
+        href='/css/jquery.fullpage.css')
+    script(type='text/javascript'
+        src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(type='text/javascript'
+        src='/js/jquery.fullpage.js')
+body
+    //init loading of the page
+    script(type='text/javascript'
+        src='/js/initpage.js')
+    script(type='text/javascript'
+        src='/js/dispaly.js')
+    //the nav menu
+    ul(id='menu')
+        li(data-menuanchor='helloPage' class='active')
+            a(href='#helloPage') Home
+        li(data-menuanchor='mostRev' class='active')
+            a(href='#mostRev') MosRe
+        li(data-menuanchor='leastRev')
+            a(href='#leastRev') LeaRe
+        li(data-menuanchor='largeUserR')
+            a(href='#largeUserR') LGrou
+        li(data-menuanchor='smallUserR')
+            a(href='#smallUserR') SGrou
+        li(data-menuanchor='longHistory')
+            a(href='#longHistory') LHis
+        li(data-menuanchor='shortHisory')
+            a(href='#shortHisory') SHis
+
+    div(id='fullpage')
+        //hello page
+        div(class='section' id='section1')
+            h2 This is an app to analysis wiki
+            h3 The data base is update at:
+                span(id='dbDate') #{dbPullD}
+            form(method='get' action='/#helloPage/pullDB')
+                button(id='pullDB' type='submit' value='Check DB') Update the daba
+        //The article with the most number of revisions.
+        div(class='section' id='section2')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
+        //The article with the least number of revisions.
+        div(class='section' id='section3')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
+        //The article edited by largest group of registered users.
+        div(class='section' id='section4')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
+        //The article edited by smallest group of registered users.
+        div(class='section' id='section5')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
+        //The article with the longest history
+        div(class='section' id='section6')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
+        //Article with the shortest history
+        div(class='section' id='section7')
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='slide')
+                div(class='left')
+                    header most re
+                div(class='right')
+                    header least re
+            div(class='fp-slidesNav bottom')
+                ul
+                    li
+                        a(href='#' class='active')
+                            span
+                    li
+                        a(href='#' class)
+                            span
+                    li
+                        a(href='#' class)
+                            span
