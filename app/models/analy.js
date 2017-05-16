@@ -20,7 +20,14 @@ AnalySchema.statics.pullDB = function(title, callback){
         .limit(1)
         .exec(callback);
 };
-
+AnalySchema.statics.searchT = function (title, callback) {
+    let treg = '/^'+title+'.*/';
+    return this.aggregate([
+        {$match:{title:treg}},
+        {$group:{_id:"$title"}},
+        {$sort:{title:-1}}
+    ]).exec(callback);
+};
 // mongoose.model(modelName, schema, collection):
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');
 module.exports = AnalyWiki;

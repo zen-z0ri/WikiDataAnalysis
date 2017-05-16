@@ -1,16 +1,8 @@
 /**
- * initial page script
+ * 1.initial page script
  * https://github.com/alvarotrigo/fullPage.js
+ * 2.tung extend funcitons for reactive page
  */
-
-function show(){
-    let mydate = new Date();
-    let str = " " + mydate.getDate() + " / ";
-    str += (mydate.getMonth()+1) + " / ";
-    str += mydate.getFullYear();
-    return str;
-}
-
 $(document).ready(function() {
 
     $('#fullpage').fullpage({
@@ -20,7 +12,15 @@ $(document).ready(function() {
         navigation: false,
         scrollingSpeed: 1000
     });
-    // $('#pullDB').click(function(){
-    //     $('#dbDate').html(show());
+
+    //search bar
+    // $('#sText').keyup(function() {
+    //
+    //     $.ajax({type:'get',
+    //         success: function(result){
+    //             $("#div1").html(result);
+    //         });
+    //
+    //     });
     // });
 });

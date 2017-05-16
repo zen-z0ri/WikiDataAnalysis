@@ -25,12 +25,10 @@ head
         src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     script(type='text/javascript'
         src='/js/jquery.fullpage.js')
-body
-    //init loading of the page
+        //init loading of the page
     script(type='text/javascript'
         src='/js/initpage.js')
-    script(type='text/javascript'
-        src='/js/dispaly.js')
+body
     //the nav menu
     ul(id='menu')
         li(data-menuanchor='helloPage' class='active')
@@ -47,15 +45,17 @@ body
             a(href='#longHistory') LHis
         li(data-menuanchor='shortHisory')
             a(href='#shortHisory') SHis
-
     div(id='fullpage')
         //hello page
         div(class='section' id='section1')
             h2 This is an app to analysis wiki
             h3 The data base is update at:
                 span(id='dbDate') #{dbPullD}
-            form(method='get' action='/#helloPage/pullDB')
-                button(id='pullDB' type='submit' value='Check DB') Update the daba
+            form(method='get' )
+                input(id='sText'
+                    type='search'
+                    placeholder='Please enter the title of article')
+                button(id='pullDB' type='submit' value='Check DB') Search
         //The article with the most number of revisions.
         div(class='section' id='section2')
             div(class='slide')

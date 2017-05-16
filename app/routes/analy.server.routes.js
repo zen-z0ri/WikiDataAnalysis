@@ -8,5 +8,5 @@ let router = express.Router();
 
 router.get('/',controller.showPage); //url path
 
-router.get('/#helloPage/pullDB', controller.pullDB);//url path
+router.get('/', controller.getTitle);//url path
 module.exports = router;

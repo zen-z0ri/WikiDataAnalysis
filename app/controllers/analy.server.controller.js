@@ -1,29 +1,21 @@
 /**
  * Created by tung on 12/05/17.
  */
-let analy = require('../models/analy');
-function getTime2Time(time1, time2)
-{
-    time1 = Date.parse(time1)/1000;
-    time2 = Date.parse(time2)/1000;
-    var time_ = time1 - time2;
-    return (time_/(3600*24));
-};
-function checkDB(){};
+let AnalyWiki = require('../models/analy.js');
 function showPage(req,res){
     res.render('fullPage.pug');
 };
-function pullDB(req,res){
-    let reqD = new Date();
-    let dbPullD = req.locals.dbPullD;
-    if(getTime2Time(reqD,dbPullD)>1) {
-        dbPullD = reqD;
-        res.render('fullPage.pug',{dbPullD:dbPullD});
-    }else{
-        checkDB();
-        res.render('fullPage.pug',{});
-    }
-
+function getTitle(req,res){
+    let sKey = req.query.key;
+    console.log(sKey);
+    AnalyWiki.searchT(sKey,(err,result)=>{
+        if(err) console.log("error happened at search titile");
+        else {
+            console.log(result);
+            res.send(JSON.stringify(result));
+            res.end();
+        }
+    });
 };
 module.exports.showPage = showPage;
-module.exports.pullDB = pullDB;
+module.exports.getTitle = getTitle;
