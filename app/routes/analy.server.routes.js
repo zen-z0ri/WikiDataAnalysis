@@ -8,5 +8,13 @@ let router = express.Router();
 
 router.get('/',controller.showPage); //url path
 
-router.get('/', controller.getTitle);//url path
+router.get('/getTitle', controller.getTitle);
+//ajax to find the info of several feature
+// router.get('/mosRe', controller.getMosReInfo);
+// router.get('/leastRev', controller.getLeastRevInfo);
+// router.get('/LGrou', controller.getLGrouInfo);
+// router.get('/SGrou', controller.getSGrouInfo);
+// router.get('/LHis', controller.getLHisInfo);
+// router.get('/SHis', controller.getSHisInfo);
+
 module.exports = router;

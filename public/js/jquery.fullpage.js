@@ -836,9 +836,7 @@
                 if (typeof tooltip !== 'undefined' && tooltip !== '') {
                     li += '<div class="' + SECTION_NAV_TOOLTIP + ' ' + options.navigationPosition + '">' + tooltip + '</div>';
                 }
-
                 li += '</li>';
-
                 nav.find('ul').append(li);
             }
 

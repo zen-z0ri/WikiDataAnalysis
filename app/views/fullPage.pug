@@ -51,11 +51,12 @@ body
             h2 This is an app to analysis wiki
             h3 The data base is update at:
                 span(id='dbDate') #{dbPullD}
-            form(method='get' )
+            div(class='sArea')
                 input(id='sText'
                     type='search'
                     placeholder='Please enter the title of article')
                 button(id='pullDB' type='submit' value='Check DB') Search
+                div(id='infoBox')
         //The article with the most number of revisions.
         div(class='section' id='section2')
             div(class='slide')
@@ -68,11 +69,7 @@ body
                     header most re
                 div(class='right')
                     header least re
-            div(class='slide')
-                div(class='left')
-                    header most re
-                div(class='right')
-                    header least re
+
             div(class='fp-slidesNav bottom')
                 ul
                     li

@@ -231,6 +231,9 @@ html.fp-enabled,
 .fp-responsive .fp-auto-height-responsive .fp-tableCell {
     height: auto !important;
 }
+/*
+ * self defined css
+ */
 .right{
     float: right;
     position: fixed;
@@ -254,7 +257,7 @@ html.fp-enabled,
     left: 0;
     height: 40px;
     z-index: 70;
-    width: 100%;
+    width: 60%;
     padding: 0;
     margin: 0;
 }
@@ -283,4 +286,25 @@ html.fp-enabled,
 }
 #menu a:hover{
     opacity: 0.4;
+}
+.sArea{
+    position: fixed;
+    top: 12px;
+    right: 20px;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    background:transparent;
+}
+#sText{
+    width: 300px;
+}
+
+#infoBox p{
+    font-size: smaller;
+    width: inherit;
+    overflow:hidden;
+    padding: 0;
+    list-style: none;
+    opacity: 0.75;
 }

@@ -2,20 +2,29 @@
  * Created by tung on 12/05/17.
  */
 let AnalyWiki = require('../models/analy.js');
+let url = require("url");
+let qs = require("querystring");
 function showPage(req,res){
     res.render('fullPage.pug');
 };
 function getTitle(req,res){
-    let sKey = req.query.key;
-    console.log(sKey);
+    let sKey = qs.parse(url.parse(req.url).query).sText;
     AnalyWiki.searchT(sKey,(err,result)=>{
         if(err) console.log("error happened at search titile");
         else {
-            console.log(result);
-            res.send(JSON.stringify(result));
+            res.send(result);
             res.end();
         }
     });
 };
-module.exports.showPage = showPage;
-module.exports.getTitle = getTitle;
+function getMosReInfo(req,res) {
+    AnalyWiki.MosRe(
+
+    );
+
+};
+module.exports={
+    showPage:showPage,
+    getTitle:getTitle
+};
+

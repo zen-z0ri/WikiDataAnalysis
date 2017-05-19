@@ -21,13 +21,18 @@ AnalySchema.statics.pullDB = function(title, callback){
         .exec(callback);
 };
 AnalySchema.statics.searchT = function (title, callback) {
-    let treg = '/^'+title+'.*/';
+    let reg = '^'+title+'.*';
+    let treg = new RegExp(reg,'i');
     return this.aggregate([
-        {$match:{title:treg}},
-        {$group:{_id:"$title"}},
-        {$sort:{title:-1}}
+        {$match:{'title':treg}},
+        {$group:{'_id':"$title"}},
+        {$sort:{'title':-1}},
+        {$limit:5}
     ]).exec(callback);
 };
+// AnalySchema.statics.getMosRe = function (callback) {
+//     return this.
+// }
 // mongoose.model(modelName, schema, collection):
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');
 module.exports = AnalyWiki;
