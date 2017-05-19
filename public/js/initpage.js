@@ -36,17 +36,20 @@ $(document).ready(function() {
             success: function (msg) {
                 infoBox.html('');
                 for (let i = 0; i < msg.length; i++) {
-                    infoBox.append("<p>" + msg[i]._id + "</p>");
+                    infoBox.append("<p class='titSelect'>" + msg[i]._id + "</p>");
                 }
-                // msg.map(ele=>infoBox.append("<p>" + msg[i]._id + "</p>"));
             }
         });
     });
     //rend the full-set analysis and figs
-
+    /*
+     *the dynamic extend html need to rebind the event!
+     *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
+     */
+    $('#infoBox').on('click','.titSelect',function(){
+        $('#sText').val($(this).html());
+        $(this).parent('#infoBox').fadeToggle("slow");
+    });
 
 });
-$(document).on('click','#infoBox p',function(){
-    $('#sText').val($(this).html());
-    $(this).parent('#infoBox').fadeToggle("slow");
-});
+
