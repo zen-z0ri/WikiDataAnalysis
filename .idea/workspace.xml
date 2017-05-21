@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04402dcd-149b-4cf3-b632-89be866af2c7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/fs.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db.test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/analy.server.controller.js" afterPath="$PROJECT_DIR$/app/controllers/analy.server.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/analy.js" afterPath="$PROJECT_DIR$/app/models/analy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/analy.server.routes.js" afterPath="$PROJECT_DIR$/app/routes/analy.server.routes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/fullPage.pug" afterPath="$PROJECT_DIR$/app/views/fullPage.pug" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/initpage.js" afterPath="$PROJECT_DIR$/public/js/initpage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,8 +31,8 @@
       <file leaf-file-name="initpage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/initpage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="48" column="40" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+            <state relative-caret-position="1364">
+              <caret line="62" column="16" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -39,8 +41,8 @@
       <file leaf-file-name="analy.server.routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/analy.server.routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            <state relative-caret-position="352">
+              <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="32" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
               </folding>
@@ -48,14 +50,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jquery.fullpage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/jquery.fullpage.js">
+      <file leaf-file-name="jquery.fullpage.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/jquery.fullpage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66054">
-              <caret line="108" column="31" lean-forward="false" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
-              <folding>
-                <marker date="1495184444176" expanded="true" signature="85614:85655" ph="..." />
-              </folding>
+            <state relative-caret-position="389">
+              <caret line="234" column="19" lean-forward="false" selection-start-line="234" selection-start-column="19" selection-end-line="234" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,76 +63,85 @@
       <file leaf-file-name="fullPage.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/fullPage.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
+            <state relative-caret-position="1430">
+              <caret line="65" column="35" lean-forward="false" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server.js">
+      <file leaf-file-name="analy.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/analy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="56" />
+            <state relative-caret-position="729">
+              <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
+                <element signature="e#243#329#0" expanded="false" />
+                <element signature="e#335#363#0" expanded="false" />
+                <element signature="e#716#760#0" expanded="false" />
+                <element signature="e#1697#1906#0" expanded="false" />
+                <element signature="e#1909#2070#0" expanded="false" />
+                <element signature="e#2205#2612#0" expanded="false" />
+                <element signature="e#2702#3021#0" expanded="false" />
+                <element signature="e#3130#3579#0" expanded="false" />
+                <element signature="e#3671#3988#0" expanded="false" />
+                <element signature="e#3991#4097#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analy.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/models/analy.js">
+      <file leaf-file-name="fs.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="154">
+              <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
                 <element signature="e#40#800#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin.txt">
+      <file leaf-file-name="db.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/db.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="220">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bot.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-198">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="analy.server.controller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="analy.server.controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/analy.server.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="198">
+              <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
               <folding>
                 <element signature="e#0#39#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="response.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/express/lib/response.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="724" column="9" lean-forward="false" selection-start-line="724" selection-start-column="9" selection-end-line="724" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -176,16 +185,17 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/loadDoc.js" />
         <option value="$PROJECT_DIR$/test.js" />
-        <option value="$PROJECT_DIR$/test.sh" />
         <option value="$PROJECT_DIR$/loadDoc.sh" />
-        <option value="$PROJECT_DIR$/app/routes/analy.server.routes.js" />
         <option value="$PROJECT_DIR$/public/css/jquery.fullpage.css" />
         <option value="$PROJECT_DIR$/public/js/jquery.fullpage.js" />
-        <option value="$PROJECT_DIR$/app/controllers/analy.server.controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/test.sh" />
         <option value="$PROJECT_DIR$/app/views/fullPage.pug" />
-        <option value="$PROJECT_DIR$/public/js/initpage.js" />
+        <option value="$PROJECT_DIR$/app/models/fs.js" />
+        <option value="$PROJECT_DIR$/app/routes/analy.server.routes.js" />
         <option value="$PROJECT_DIR$/app/models/analy.js" />
+        <option value="$PROJECT_DIR$/public/js/initpage.js" />
+        <option value="$PROJECT_DIR$/app/controllers/analy.server.controller.js" />
       </list>
     </option>
   </component>
@@ -207,10 +217,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="-11" />
-    <option name="width" value="1303" />
-    <option name="height" value="780" />
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1301" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -253,6 +263,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -389,7 +400,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,6 +458,17 @@
           <list />
         </option>
       </EXTENSION>
+      <method />
+    </configuration>
+    <configuration default="false" name="test.sh" type="BashConfigurationType" factoryName="Bash" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="bash" />
+      <option name="INTERPRETER_PATH" value="/usr/bin/env" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.sh" />
+      <option name="PARAMETERS" value="" />
+      <module name="node-assignment" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="BashConfigurationType" factoryName="Bash">
@@ -572,13 +593,15 @@
       </EXTENSION>
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Node.js.serverjs" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.test.js" />
+      <item index="2" class="java.lang.String" itemvalue="Bash.test.sh" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.test.js" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Bash.test.sh" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.test.js" />
       </list>
     </recent_temporary>
   </component>
@@ -611,32 +634,44 @@
       <workItem from="1495175247684" duration="12191000" />
       <workItem from="1495193366193" duration="4667000" />
       <workItem from="1495198352061" duration="3623000" />
+      <workItem from="1495339131331" duration="103000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121142000" />
+    <option name="totallyTimeSpent" value="142497000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31437355" sideWeight="0.9029734" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27073553" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2769953" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980783" sideWeight="0.0970266" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2769953" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980783" sideWeight="0.0970266" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31437355" sideWeight="0.9029734" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -647,29 +682,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="46" />
+      <option name="time" value="48" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/fullpage.js/dist/jquery.fullpage.extensions.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10870">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/CSS/tablestyle.css" />
-    <entry file="file://$PROJECT_DIR$/node_modules/fullpage.js/dist/jquery.fullpage.min.css.map">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/fullpage.js/dist/jquery.fullpage.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -753,7 +770,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/loadDoc.js" />
-    <entry file="file://$PROJECT_DIR$/test.sh" />
     <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/route.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
@@ -767,7 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2046">
           <caret line="93" column="10" lean-forward="false" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -785,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,8 +808,17 @@
         <state relative-caret-position="550">
           <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#40#800#0" expanded="false" />
+            <element signature="e#0#39#0" expanded="false" />
+            <element signature="e#243#329#0" expanded="false" />
+            <element signature="e#335#363#0" expanded="false" />
+            <element signature="e#716#760#0" expanded="false" />
+            <element signature="e#1697#1906#0" expanded="false" />
+            <element signature="e#1909#2070#0" expanded="false" />
+            <element signature="e#2205#2612#0" expanded="false" />
+            <element signature="e#2702#3021#0" expanded="false" />
+            <element signature="e#3130#3579#0" expanded="false" />
+            <element signature="e#3671#3988#0" expanded="false" />
+            <element signature="e#3991#4097#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,13 +875,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loadDoc.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bot.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -882,22 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/jquery.fullpage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5148">
-          <caret line="234" column="19" lean-forward="false" selection-start-line="234" selection-start-column="19" selection-end-line="234" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bot.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -914,9 +914,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loadDoc.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mongodb/lib/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1068">
+          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/fs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+          <folding>
+            <element signature="e#40#800#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/fullPage.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="65" column="35" lean-forward="false" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/jquery.fullpage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66054">
+        <state relative-caret-position="389">
           <caret line="108" column="31" lean-forward="false" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
           <folding>
             <marker date="1495184444176" expanded="true" signature="85614:85655" ph="..." />
@@ -924,67 +984,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/jquery.fullpage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="234" column="19" lean-forward="false" selection-start-line="234" selection-start-column="19" selection-end-line="234" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/response.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="724" column="9" lean-forward="false" selection-start-line="724" selection-start-column="9" selection-end-line="724" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/analy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="729">
+          <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+            <element signature="e#243#329#0" expanded="false" />
+            <element signature="e#335#363#0" expanded="false" />
+            <element signature="e#716#760#0" expanded="false" />
+            <element signature="e#1697#1906#0" expanded="false" />
+            <element signature="e#1909#2070#0" expanded="false" />
+            <element signature="e#2205#2612#0" expanded="false" />
+            <element signature="e#2702#3021#0" expanded="false" />
+            <element signature="e#3130#3579#0" expanded="false" />
+            <element signature="e#3671#3988#0" expanded="false" />
+            <element signature="e#3991#4097#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/analy.server.routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/initpage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="48" column="40" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+        <state relative-caret-position="1364">
+          <caret line="62" column="16" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/analy.server.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="56" />
+          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/fullPage.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/analy.server.routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/analy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#40#800#0" expanded="false" />
           </folding>
         </state>
       </provider>

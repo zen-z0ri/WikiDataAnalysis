@@ -16,5 +16,5 @@ router.get('/getTitle', controller.getTitle);
 // router.get('/SGrou', controller.getSGrouInfo);
 // router.get('/LHis', controller.getLHisInfo);
 // router.get('/SHis', controller.getSHisInfo);
-
+router.post('/getTextInfoForFull', controller.getTextInfoForFull);
 module.exports = router;

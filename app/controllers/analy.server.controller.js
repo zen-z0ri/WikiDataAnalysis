@@ -10,7 +10,7 @@ let showPage = (req,res) => res.render('fullPage.pug');
 //get title in the db for search box
 function getTitle(req,res){
     let sKey = qs.parse(url.parse(req.url).query).sText;
-    AnalyWiki.searchT(sKey,(err,result)=>{
+    AnalyWiki.searchTitle(sKey,(err,result)=>{
         if(err) console.log("error happened at search titile");
         else {
             res.send(result);
@@ -18,12 +18,31 @@ function getTitle(req,res){
         }
     });
 };
-function getMosReInfo(req,res) {
-    AnalyWiki.MosRe(
-    );
+// get the full set statistic result
+function mostRevArticle(req,res) {
+    AnalyWiki.revNumofArticle((err,result)=>{
+        if(err) console.log(err.message);
+        else {
+            res.send(result[0]);
+        }
+    });
+    AnalyWiki.registerUserofArticle((err,result)=>{
+        if(err) console.log(err.message);
+        else {
+            res.send(result);
+        }
+    });
+    AnalyWiki.historyofArticle((err,result)=>{
+        if(err) console.log(err.message);
+        else {
+            res.send(result);
+        }
+    });
 };
 module.exports={
     showPage:showPage,
-    getTitle:getTitle
+    getTitle:getTitle,
+    getTextInfoForFull:getTextInfoForFull
+
 };
 

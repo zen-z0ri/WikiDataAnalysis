@@ -15,9 +15,10 @@ function leastRevPie() {
 
 }
 $(document).ready(function() {
+    console.log("dsd");
     //https://github.com/alvarotrigo/fullPage.js
     $('#fullpage').fullpage({
-        sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#ccddff', '#FFC1C1', '#EE9090','#C85B5B'],
+        sectionsColor: ['#1bbc9b', '#4BBFC3', '#90ee90', '#ccddff', '#FFC1C1', '#EE9090','#C85B5B'],
         anchors: ['helloPage', 'mostRev', 'leastRev', 'largeUserR', 'smallUserR', 'longHistory', 'shortHisory'],
         menu: '#menu',
         navigation: false,
@@ -42,14 +43,23 @@ $(document).ready(function() {
         });
     });
     //rend the full-set analysis and figs
-    /*
-     *the dynamic extend html need to rebind the event!
-     *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
-     */
-    $('#infoBox').on('click','.titSelect',function(){
-        $('#sText').val($(this).html());
-        $(this).parent('#infoBox').fadeToggle("slow");
-    });
+
 
 });
 
+/*
+ *the dynamic extend html need to rebind the event!
+ *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
+ */
+$(document).on('click','.titSelect',function(){
+    $('#sText').val($(this).html());
+    $(this).parent('#infoBox').fadeToggle("slow");
+});
+$.ajax({
+    type: "post",
+    dataType: "text",
+    url: "/getTextInfoForFull",
+    success: function (msg) {
+       alert(msg)
+    }
+});
