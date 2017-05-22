@@ -4,6 +4,7 @@
 let AnalyWiki = require('../models/analy.js');
 let url = require('url');
 let qs = require('querystring');
+let async = require('async');
 
 //render page
 let showPage = (req,res) => res.render('fullPage.pug');
@@ -19,30 +20,76 @@ function getTitle(req,res){
     });
 };
 // get the full set statistic result
-function mostRevArticle(req,res) {
+function revNumArticle(req,res) {
     AnalyWiki.revNumofArticle((err,result)=>{
         if(err) console.log(err.message);
         else {
-            res.send(result[0]);
+            res.send(result);
+            res.end();
         }
     });
+};
+// //
+function registerNumArticle(req,res) {
     AnalyWiki.registerUserofArticle((err,result)=>{
         if(err) console.log(err.message);
         else {
             res.send(result);
+            res.end();
         }
     });
+};
+// //
+function historyArticle(req,res) {
     AnalyWiki.historyofArticle((err,result)=>{
         if(err) console.log(err.message);
         else {
             res.send(result);
+            res.end();
         }
     });
 };
+/*
+ *find the number of
+ */
+function changeDataFormat(jsonArr,data) {
+
+    jsonArr.forEach(function (ele,idx){
+        ele._id
+    });
+}
+function fullUserPieChart(req,res) {
+    res.writeHead(200, {"Content-Type": "text"});
+    AnalyWiki.adminStatistic((err,result)=> {
+        if (err) console.log(err.message);
+        else res.write(JSON.stringify(result)+'|');
+        AnalyWiki.botStatistic((err,result)=> {
+            if (err) console.log(err.message);
+            else res.write(JSON.stringify(result)+'|');
+            AnalyWiki.registerUserStatistic((err,result)=> {
+                if (err) console.log(err.message);
+                else res.write(JSON.stringify(result)+'|');
+                AnalyWiki.anonStatistic((err,result)=> {
+                    if (err) console.log(err.message);
+                    else res.write(JSON.stringify(result));
+                    res.end();
+                });
+            });
+        });
+    });
+};
+
 module.exports={
     showPage:showPage,
     getTitle:getTitle,
-    getTextInfoForFull:getTextInfoForFull
-
+    revNumArticle:revNumArticle,
+    registerNumArticle,registerNumArticle,
+    historyArticle,historyArticle,
+    fullUserPieChart,fullUserPieChart
+    // lastRevArticle:lastRevArticle,
+    // mostResisterUserArticle:mostResisterUserArticle,
+    // lastResisterUserArticle:lastResisterUserArticle,
+    // longHistoryArticle:longHistoryArticle,
+    // shortHistoryArticle:shortHistoryArticle
 };
 

@@ -2,25 +2,22 @@
  * 1.initial page script
  * 2.tung extend funcitons for reactive page
  */
-function MosReBar() {
-    $
-}
-function MosRePie() {
+google.charts.load('current', {'packages':['corechart']});
+//data for figs
+var allBarData;
+var allPieData;
+var indiviBarData;
+var indiviPieData;
+var userRevBarData;
+//process data for
 
-}
-function leastRevBar() {
-    
-}
-function leastRevPie() {
-
-}
 $(document).ready(function() {
-    console.log("dsd");
     //https://github.com/alvarotrigo/fullPage.js
     $('#fullpage').fullpage({
         sectionsColor: ['#1bbc9b', '#4BBFC3', '#90ee90', '#ccddff', '#FFC1C1', '#EE9090','#C85B5B'],
-        anchors: ['helloPage', 'mostRev', 'leastRev', 'largeUserR', 'smallUserR', 'longHistory', 'shortHisory'],
+        anchors: ['helloPage', 'mostRev'],
         menu: '#menu',
+        lockAnchors: true,
         navigation: false,
         scrollingSpeed: 700
     });
@@ -42,8 +39,85 @@ $(document).ready(function() {
             }
         });
     });
-    //rend the full-set analysis and figs
+    //rend the full-set text analysis
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/revNumArticle",
+        success: function (msg) {
+            let info = $('.revNum');
+            let a = msg[0];
+            let b = msg[msg.length-1];
+            info.html('');
+            info.append("<p >1.The article with the most number of revisions:<br/>  <span>"
+                + a._id
+                + "</span> <br/>Revision number: <span>"
+                + a.revNum
+                + "</span></p>");
+            info.append("<p >2.The article with the least number of revisions:<br/>  <span>"
+                + b._id
+                + "</span> <br/>Revision number: <span>"
+                + b.revNum
+                +"</span></p>");
+        }
+    });
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/registerNumArticle",
+        success: function (msg) {
+            let info = $('.registerUser');
+            let a = msg[0];
+            let b = msg[msg.length-1];
+            info.append("<p >3.The article edited by largest group of registered users:<br/>  <span>"
+                + a._id
+                + "</span> <br/>User number: <span>"
+                + a.uniqueUserCount
+                +"</p>");
+            info.append("<p >4.The article edited by smallest group of registered users:<br/>  <span>"
+                + b._id
+                + "</span> <br/>User number: <span>"
+                + b.uniqueUserCount
+                +"</p>");
+        }
+    });
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/historyArticle",
+        success: function (msg) {
+            let info = $('.history');
+            let a = msg[0];
+            let b = msg[msg.length-1];
+            info.append("<p >5.The article with the shortest history:<br/>  <span>"
+                + a._id
+                + "</span> <br/>Start from: <span>"
+                + a.firRev.toString().slice(0,9)
+                +"</span></p>");
+            info.append("<p >6.The article with the longest history:<br/>  <span>"
+                + b._id +"</span> <br/>Start from: <span>"
+                + b.firRev.toString().slice(0,9)
+                +"</span></p>");
+        }
+    });
+    //full-set figs
+    $.ajax({
+        type: "get",
+        dataType: "text",
+        url: "/fullUserPieChart",
+        success: function (msg) {
+            msg = msg.split('|');
+            let info = [];
+            msg.forEach(
+                (ele,idx) => {info[idx] = JSON.parse(ele)
+            });
+            for (let i of info){
+                alert(i[0]._id);
+            }
+            //
 
+        }
+    });
 
 });
 
@@ -55,11 +129,5 @@ $(document).on('click','.titSelect',function(){
     $('#sText').val($(this).html());
     $(this).parent('#infoBox').fadeToggle("slow");
 });
-$.ajax({
-    type: "post",
-    dataType: "text",
-    url: "/getTextInfoForFull",
-    success: function (msg) {
-       alert(msg)
-    }
-});
+
+//rend the full-set figs

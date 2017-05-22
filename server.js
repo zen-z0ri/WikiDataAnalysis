@@ -5,7 +5,7 @@ let express = require('express');
 let path = require('path');
 let bodyParser = require('body-parser');
 let staRoutes = require('./app/routes/analy.server.routes');
-
+let async = require('async');
 
 let app = express();
 

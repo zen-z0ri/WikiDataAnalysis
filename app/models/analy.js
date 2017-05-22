@@ -7,6 +7,7 @@ let fs = require('./fs');
 console.log(fs.botList.length); //[903]
 console.log(fs.admList.length); //[576]
 
+
 //define the schema
 let AnalySchema = new mongoose.Schema(
     {title: String,
@@ -45,19 +46,21 @@ AnalySchema.statics.revNumofArticle = function (callback) {
 //used to find the article edited by registered users in full set
 AnalySchema.statics.registerUserofArticle = function (callback) {
    return this.aggregate([
-        {$match: {
-            $and: [
-                {user: {$nin: fs.botList} },
-                {user: {$nin: fs.admList} },
-                {anon: {$exists: false} }
-            ]
-        }},
-        {$group: {
-            _id: "$title",
-            revNum: {$sum: 1}
-        }},
-        {$sort: {revNum: -1} }//large to small
-    ]).exec(callback)
+       {$match: {
+           $and: [
+               {user: {$nin: fs.botList} },
+               {user: {$nin: fs.botList} },
+               {anon: {$exists: false} }
+           ]
+       }},
+       {$group: {
+           _id: "$title",
+           uniqUser: {$addToSet: "$user"}
+       }},
+       {$project: {"title": 1,
+           uniqueUserCount: {$size: "$uniqUser"} } },
+       {$sort: {uniqueUserCount: -1} }//large to small
+   ]).exec(callback)
 };
 //used to find the history of the article in full set
 AnalySchema.statics.historyofArticle = function (callback) {
@@ -148,45 +151,8 @@ AnalySchema.statics.anonStatistic = function (callback) {
     ]).exec(callback);
 };
 
-/*
- * method used to display pie chart:
- * number distribution by user type across the whole data set.
- */
-//sum of a array
-let arraySum = arr => arr.reduce((acc, val) => (acc + val.count), 0);
-//find the full distribution from four user classes
-AnalySchema.statics.allUserStatistc = function () {
-    let userStatistic = {
-        "adminNum":0,
-        "botNum":0,
-        "registerUserNum":0,
-        "anonNum":0
-    }
-    AnalyWiki.adminStatistic((err,result)=>{
-        if(err) console.log(err.message);
-        userStatistic.adminNum = arraySum(result);
-        console.log(userStatistic.adminNum);
-    });
-    AnalyWiki.botStatistic((err,result)=>{
-        if(err) console.log(err.message);
-        userStatistic.botNum = arraySum(result);
-        console.log(userStatistic.botNum);
-    });
-    AnalyWiki.registerUserStatistic((err,result)=>{
-        if(err) console.log(err.message);
-        userStatistic.registerUserNum = arraySum(result);
-        console.log(userStatistic.registerUserNum);
-    });
-    AnalyWiki.anonStatistic((err,result)=>{
-        if(err) console.log(err.message);
-        userStatistic.anonNum = arraySum(result);
-        console.log(userStatistic.anonNum);
-    });
-
-    return userStatistic;
-}
 
 //use model and export model
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');
-AnalyWiki.allUserStatistc();
+
 module.exports = AnalyWiki;

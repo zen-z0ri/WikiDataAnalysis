@@ -25,26 +25,20 @@ head
         src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     script(type='text/javascript'
         src='/js/jquery.fullpage.js')
+    script(src="https://www.gstatic.com/charts/loader.js")
 body
     //init loading of the page
     script(type='text/javascript'
         src='/js/initpage.js')
+    link(rel='stylesheet'
+        type='text/css'
+        href='/css/selfdefine.css')
     //the nav menu
     ul(id='menu')
         li(data-menuanchor='helloPage' class='active')
             a(href='#helloPage') Home
         li(data-menuanchor='mostRev' class='active')
-            a(href='#mostRev') MosRe
-        li(data-menuanchor='leastRev')
-            a(href='#leastRev') LeaRe
-        li(data-menuanchor='largeUserR')
-            a(href='#largeUserR') LGrou
-        li(data-menuanchor='smallUserR')
-            a(href='#smallUserR') SGrou
-        li(data-menuanchor='longHistory')
-            a(href='#longHistory') LHis
-        li(data-menuanchor='shortHisory')
-            a(href='#shortHisory') SHis
+            a(href='#mostRev') Over All Statistics
     div(id='fullpage')
         //hello page
         div(class='section' id='section1')
@@ -57,158 +51,31 @@ body
                     placeholder='Please enter the title of article')
                 button(id='pullDB' type='submit' value='Check DB') Search
                 div(id='infoBox')
+            ul(id= 'individual-nav')
+                li
+                    a(href='#individual-1')
+                        span 1
+                li
+                    a(href='#individual-2')
+                        span 2
+                li
+                    a(href='#individual-3')
+                        span 3
         //The article with the most number of revisions.
         div(class='section' id='section2')
             div(class='slide')
-                div(class='setStatic text')
-                    header most re
-                div(class='setStatic fig')
+                div(class='fullInfo text')
+                    span(class='revNum')
+                    span(class='registerUser')
+                    span(class='history')
+                ul(id= 'fullset-nav')
+                    li
+                        a(href='#fullset-bar')
+                            span Bar
+                    li
+                        a(href='##fullset-pie')
+                            span Pie
+                div(class='fullInfo bar')
                     header least re
-            div(class='fp-slidesNav bottom')
-                ul
-                    li
-                        a(href='#' class='active')
-                            span
-                    li
-                        a(href='#' class)
-                            span
-        //The article with the least number of revisions.
-        //div(class='section' id='section3')
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='fp-slidesNav bottom')
-        //        ul
-        //            li
-        //                a(href='#' class='active')
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        ////The article edited by largest group of registered users.
-        //div(class='section' id='section4')
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='fp-slidesNav bottom')
-        //        ul
-        //            li
-        //                a(href='#' class='active')
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        ////The article edited by smallest group of registered users.
-        //div(class='section' id='section5')
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='fp-slidesNav bottom')
-        //        ul
-        //            li
-        //                a(href='#' class='active')
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        ////The article with the longest history
-        //div(class='section' id='section6')
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='fp-slidesNav bottom')
-        //        ul
-        //            li
-        //                a(href='#' class='active')
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        ////Article with the shortest history
-        //div(class='section' id='section7')
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='slide')
-        //        div(class='left')
-        //            header most re
-        //        div(class='right')
-        //            header least re
-        //    div(class='fp-slidesNav bottom')
-        //        ul
-        //            li
-        //                a(href='#' class='active')
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
-        //            li
-        //                a(href='#' class)
-        //                    span
+                div(class='fullInfo pie')
+                    header dsfsfs

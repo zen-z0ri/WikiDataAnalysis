@@ -1,0 +1,151 @@
+/*
+ * self defined css
+ */
+. {
+    padding: 0;
+    margin: 0;
+}
+/*
+ * the full page navigation
+ */
+#menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 40px;
+    z-index: 70;
+    width: 40%;
+}
+#menu ul{
+    list-style: none;
+    display: block;
+}
+#menu  li {
+    display: inline-block;
+    width: 40%;
+    margin: 10px;
+    background-color: rgba(254, 254, 254, 0.27);
+    border-radius: 10px;
+    text-align: center;
+}
+#menu a{
+    display: inline-block;
+    color: #000000;
+    text-align: center;
+    padding: 9px 18px;
+    text-decoration: none;
+}
+#menu li.active {
+    background-color: rgba(0, 0, 0, 0.51);
+}
+#menu li.active a{
+    color: white;
+}
+#menu a:hover{
+    opacity: 0.4;
+}
+/*
+ * the search box
+ */
+.sArea{
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    float: right;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background:transparent;
+}
+#sText{
+    width: 300px;
+    height: 35px;
+    border-radius: 7px;
+    border: none;
+}
+.sArea button{
+    height: 35px;
+}
+/*
+ * the full-set text information
+ */
+#infoBox p{
+    font-size: smaller;
+    width: inherit;
+    overflow:hidden;
+    list-style: none;
+    opacity: 0.75;
+}
+.fullInfo.text{
+    float: left;
+    width: 45%;
+    position: relative;
+    top: 10px;
+    left: 70px;
+    text-align: left;
+}
+.fullInfo p{
+    margin: 6px;
+}
+.fullInfo span{
+    font-size: 115%;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: solid;
+}
+/*
+ * full-set nav
+ */
+#fullset-nav{
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    float: right;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background:transparent;
+}
+#fullset-nav  li {
+    display: inline-block;
+    width: 10%;
+    margin: 10px;
+    background-color: rgba(254, 254, 254, 0.27);
+    border-radius: 10px;
+    text-align: center;
+}
+#fullset-nav a{
+    display: inline-block;
+    color: #000000;
+    text-align: center;
+    padding: 9px 18px;
+    text-decoration: none;
+}
+/*
+ * individual nav
+ * hide at first
+ */
+#individual-nav {
+    position:absolute;
+    top: 130px;
+    left: 20px;
+    float: left;
+    width: 12%;
+    margin-left: auto;
+    margin-right: auto;
+    background:transparent;
+}
+#individual-nav  li {
+    display: block;
+    margin: 40px;
+    background-color: rgba(254, 254, 254, 0.27);
+    border-radius: 10px;
+    text-align: center;
+}
+#individual-nav a{
+    display: inline-block;
+    color: #000000;
+    text-align: center;
+    padding: 9px 18px;
+    text-decoration: none;
+}

@@ -10,11 +10,14 @@ router.get('/',controller.showPage); //url path
 
 router.get('/getTitle', controller.getTitle);
 //ajax to find the info of several feature
-// router.get('/mosRe', controller.getMosReInfo);
-// router.get('/leastRev', controller.getLeastRevInfo);
-// router.get('/LGrou', controller.getLGrouInfo);
-// router.get('/SGrou', controller.getSGrouInfo);
-// router.get('/LHis', controller.getLHisInfo);
-// router.get('/SHis', controller.getSHisInfo);
-router.post('/getTextInfoForFull', controller.getTextInfoForFull);
+router.get('/revNumArticle', controller.revNumArticle);
+router.get('/registerNumArticle', controller.registerNumArticle);
+router.get('/historyArticle', controller.historyArticle);
+//full set figs
+router.get('/fullUserPieChart', controller.fullUserPieChart);
+// router.post('/mostResisterUserArticle', controller.mostResisterUserArticle);
+// router.post('/lastResisterUserArticle', controller.lastResisterUserArticle);
+// router.post('/longHistoryArticle', controller.longHistoryArticle);
+// router.post('/shortHistoryArticle', controller.shortHistoryArticle);
+
 module.exports = router;

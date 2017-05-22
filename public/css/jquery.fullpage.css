@@ -5,6 +5,7 @@
  *
  * Copyright (C) 2013 alvarotrigo.com - A project by Alvaro Trigo
  */
+
 html.fp-enabled,
 .fp-enabled body {
     margin: 0;
@@ -230,81 +231,4 @@ html.fp-enabled,
 .fp-responsive .fp-auto-height-responsive .fp-slide,
 .fp-responsive .fp-auto-height-responsive .fp-tableCell {
     height: auto !important;
-}
-/*
- * self defined css
- */
-.right{
-    float: right;
-    position: fixed;
-
-    right: 40px;
-    background-color: white;
-    border:1px solid blue;
-    margin-left:10px;
-}
-.left{
-    float: left;
-    position: fixed;
-    left: 40px;
-    background-color: darkslategray;
-    border:1px solid blue;
-    margin-left:10px;
-}
-#menu{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 40px;
-    z-index: 70;
-    width: 60%;
-    padding: 0;
-    margin: 0;
-}
-#menu ul{
-    list-style: none;
-    display: block;
-}
-#menu  li {
-    display: inline-block;
-    margin: 10px;
-    background-color: rgba(254, 254, 254, 0.27);
-    border-radius: 10px;
-}
-#menu a{
-    display: inline-block;
-    color: #000000;
-    text-align: center;
-    padding: 9px 18px;
-    text-decoration: none;
-}
-#menu li.active {
-    background-color: rgba(0, 0, 0, 0.51);
-}
-#menu li.active a{
-    color: white;
-}
-#menu a:hover{
-    opacity: 0.4;
-}
-.sArea{
-    position: fixed;
-    top: 12px;
-    right: 20px;
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    background:transparent;
-}
-#sText{
-    width: 300px;
-}
-
-#infoBox p{
-    font-size: smaller;
-    width: inherit;
-    overflow:hidden;
-    padding: 0;
-    list-style: none;
-    opacity: 0.75;
 }
