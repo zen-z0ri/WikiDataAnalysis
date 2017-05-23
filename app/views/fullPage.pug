@@ -25,7 +25,8 @@ head
         src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     script(type='text/javascript'
         src='/js/jquery.fullpage.js')
-    script(src="https://www.gstatic.com/charts/loader.js")
+    script(type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js")
 body
     //init loading of the page
     script(type='text/javascript'
@@ -70,12 +71,11 @@ body
                     span(class='history')
                 ul(id= 'fullset-nav')
                     li
-                        a(href='#fullset-bar')
+                        a(id='fullset-bar')
                             span Bar
                     li
-                        a(href='##fullset-pie')
+                        a(id='fullset-pie')
                             span Pie
-                div(class='fullInfo bar')
-                    header least re
-                div(class='fullInfo pie')
-                    header dsfsfs
+                div(id='fullInfo-bar')
+
+

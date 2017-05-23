@@ -1,0 +1,201 @@
+
+treat both admin and bot as a bot
+
+https://en.wikipedia.org/w/api.php?action=query&format=jsonfm&titles="_____"&prop=revisions&rvlimit=max&rvcontinue="____"
+
+/w/api.php?action=query&format=json&list=allcategories&continue=-%7C%7C&accontinue=List_of_lawyers&acprefix=List+of
+
+/******************************************************/
+db.getCollection('revisions').aggregate([
+    {$group:{_id:"$title",revNum:{$sum:1}}},
+    {$sort:{revNum:-1}},
+    {$limit:100}
+])
+//*****************The article with the most number of revisions.
+var res = db.getCollection('revisions').aggregate([
+    {$group: {
+        _id: "$title",
+        revNum: {$sum: 1} 
+    }},
+    {$sort: {revNum: -1} }
+]).toArray(); 
+res[0];   
+//******************The article with the least number of revisions.
+var res = db.getCollection('revisions').aggregate([
+    {$group: {
+        _id: "$title",
+        revNum: {$sum: 1} 
+    }},
+    {$sort: {revNum: -1} }
+]).toArray(); 
+res[res.length-1]; 
+
+
+/****************************************************/
+var bot = [ 'User',
+  'Cydebot',
+  'WP 1.0 bot',
+  'SmackBot',
+  'Yobot'];
+var admin = ['ClueBot NG',
+  'Addbot',
+  'SineBot'];  
+db.getCollection('revisions').aggregate([
+    {$match: {
+        $and: [
+            {user: {$nin: bot} },
+            {user: {$nin: admin} },
+            {anon: {$exists: false} }
+        ]
+    }},
+    {$group: {
+        _id: "$title",
+        revNum: {$sum: 1}
+    }},
+    {$sort: {revNum: -1} } 
+])
+//*****************The article edited by largest group of registered users.
+[0]
+//****************The article edited by smallest group of registered users.
+[length-1]
+
+/****************************************************/
+db.getCollection('revisions').aggregate([
+    {$group:{_id:"$title",firRev:{$min:'$timestamp'}}},
+    {$sort:{firRev:-1}},
+    {$limit:100}
+])
+//**************art with long History
+var res = db.getCollection('revisions').aggregate([
+    {$group: {
+        _id: "$title",
+        firRev: {$min: '$timestamp'} 
+    }},
+    {$sort: {firRev: -1} },
+]).toArray();
+res[res.length-1];  
+//********************art with short history
+var res = db.getCollection('revisions').aggregate([
+    {$group: {
+        _id: "$title",
+        firRev: {$min: '$timestamp'} 
+    }},
+    {$sort: {firRev: -1} },
+]).toArray();
+res[0];
+
+
+//**************************all set user with time
+//**************************bot in every year
+var bot = [];
+db.getCollection('revisions').aggregate([
+    {$match: {
+        user: {$in: bot}
+    }},
+    {$project: {
+         Year: {$substr: ["$timestamp", 0, 4] }, 
+    }},
+    {$group: {
+         _id: "$Year", 
+         count: {$sum: 1}
+    }}, 
+    {$sort: {_id: 1} } 
+])
+//****************************admin in every year
+var bot = [];
+var admin = [];
+db.getCollection('revisions').aggregate([
+    {$match: {
+	$and: [
+        	{user: {$in: admin} },
+		{user: {$nin: bot} }
+        ]
+    }},
+    {$project: {
+         Year: {$substr: ["$timestamp", 0, 4] }, 
+    }},
+    {$group: {
+         _id: "$Year", 
+         count: {$sum : 1}
+    }}, 
+    {$sort: {_id : 1} } 
+])
+//***********************************anon in every year
+db.getCollection('revisions').aggregate([
+    {$match: {
+	anon: {$exists: true}
+    }},
+    {$project: {
+         Year: {$substr: ["$timestamp", 0, 4 ]}, 
+    }},
+    {$group: {
+         _id: "$Year", 
+         count: {$sum: 1}
+    }}, 
+    {$sort: {_id: 1} } 
+])
+//*************************regular in every year
+db.getCollection('revisions').aggregate([
+    {$match: {
+	$and: [
+            {user: {$nin: bot} },
+            {user: {$nin: admin} },
+            {anon: {$exists: false} }
+        ]
+    }},
+    {$project: {
+         Year: {$substr: ["$timestamp", 0, 4 ]}, 
+    }},
+    {$group: {
+         _id: "$Year", 
+         count: {$sum: 1}
+    }}, 
+    {$sort: {_id: 1} } 
+])
+//**************************all set user analysis
+//anon
+db.getCollection('revisions').find({anon: {$exists: true} }).count();
+//bot
+db.getCollection('revisions').find({user: {$in: bot} }).count();
+//admin
+db.getCollection('revisions').find({user: {$in: admin not in bot} }).count();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////**********************************log problem!!
+db.getCollection('revisions').aggregate([
+//     {$project : {
+//          Year : {$year : "$timestamp"}, 
+//     }},
+    {$group : {
+         _id : {Year : { $year : "$timestamp" }}, 
+         count : {$sum : 1}
+    }},
+    { $sort : { _id : 1}} 
+ 
+])
+    
+//     { $group : { 
+// …         _id: { 
+// …             year : { $year : "$created" }, 
+// …             month : { $month : "$created" }, 
+// …             day : { $dayOfMonth : "$created" }, 
+// …         }, 
+// …         count: { $sum: 1 } 
+// …     }}, 
+// …     { $sort : { _id : 1}} 
+
+
+//the total revisions in every year
+12144+16576.0+15683.0+15485.0+24729.0+24850.0+39090.0+50036.0+59731.0+92937.0+130068.0+52063.0+12609.0+2795.0+1137.0+151.0

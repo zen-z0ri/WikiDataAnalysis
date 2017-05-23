@@ -4,9 +4,9 @@
 let mongoose = require('./db');
 let fs = require('./fs');
 
-console.log(fs.botList.length); //[903]
-console.log(fs.admList.length); //[576]
-
+console.log(fs.botList); //[903]
+console.log("__________________________________________")
+console.log(fs.admList); //[576]
 
 //define the schema
 let AnalySchema = new mongoose.Schema(

@@ -52,13 +52,7 @@ function historyArticle(req,res) {
 /*
  *find the number of
  */
-function changeDataFormat(jsonArr,data) {
-
-    jsonArr.forEach(function (ele,idx){
-        ele._id
-    });
-}
-function fullUserPieChart(req,res) {
+function fullUserData(req,res) {
     res.writeHead(200, {"Content-Type": "text"});
     AnalyWiki.adminStatistic((err,result)=> {
         if (err) console.log(err.message);
@@ -85,7 +79,7 @@ module.exports={
     revNumArticle:revNumArticle,
     registerNumArticle,registerNumArticle,
     historyArticle,historyArticle,
-    fullUserPieChart,fullUserPieChart
+    fullUserData,fullUserData
     // lastRevArticle:lastRevArticle,
     // mostResisterUserArticle:mostResisterUserArticle,
     // lastResisterUserArticle:lastResisterUserArticle,

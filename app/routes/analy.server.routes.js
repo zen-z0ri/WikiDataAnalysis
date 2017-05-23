@@ -14,7 +14,7 @@ router.get('/revNumArticle', controller.revNumArticle);
 router.get('/registerNumArticle', controller.registerNumArticle);
 router.get('/historyArticle', controller.historyArticle);
 //full set figs
-router.get('/fullUserPieChart', controller.fullUserPieChart);
+router.get('/fullUserData', controller.fullUserData);
 // router.post('/mostResisterUserArticle', controller.mostResisterUserArticle);
 // router.post('/lastResisterUserArticle', controller.lastResisterUserArticle);
 // router.post('/longHistoryArticle', controller.longHistoryArticle);

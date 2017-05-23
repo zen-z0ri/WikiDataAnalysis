@@ -149,3 +149,9 @@
     padding: 9px 18px;
     text-decoration: none;
 }
+#fullInfo-bar{
+    position:relative;
+    top:20px;
+    right: -50px;
+    float: left;
+}

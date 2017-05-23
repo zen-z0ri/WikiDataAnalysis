@@ -1,23 +1,66 @@
-/**
+    /**
  * 1.initial page script
  * 2.tung extend funcitons for reactive page
  */
 google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['bar']});
+// google.charts.setOnLoadCallback(drawChart);
 //data for figs
 var allBarData;
 var allPieData;
 var indiviBarData;
 var indiviPieData;
 var userRevBarData;
-//process data for
-
+//process data for correct format of figs
+function formatDataByTime(info) {
+    let minY = Math.min(info[0][0]._id,
+        info[1][0]._id,
+        info[2][0]._id,
+        info[3][0]._id);
+    let maxY = Math.max(info[0][info[0].length-1]._id,
+        info[1][info[1].length-1]._id,
+        info[2][info[2].length-1]._id,
+        info[3][info[3].length-1]._id);
+    let data = [];
+    for (let i = minY; i <= maxY; i++ ){
+        data.push([i.toString(10)]);
+    }
+        info.forEach((jsonArr,idx) => {
+            jsonArr.forEach((ele,eIdx) =>{
+                for (let i = 0; i < data.length; i++) {
+                    if (ele._id == data[i][0]) {
+                        data[i][idx+1]=ele.count;
+                    }
+                }
+            });
+        });
+    data.unshift(['Years', 'admin', 'bot', 'regular', 'anon']);
+    return data;
+};
+function formatDataToSum(info) {
+    let data = [['UserType', 'number'],
+        ['admin'],
+        ['bot'],
+        ['regular'],
+        ['anon']];
+    info.forEach((jsonArr, idx) =>{
+       // data[idx+1].push(
+        let sum = 0;
+        for(let ele of jsonArr){
+           sum += ele.count;
+        }
+        data[idx+1].push(sum);
+    });
+    alert(data.toString());
+    return data;
+}
 $(document).ready(function() {
     //https://github.com/alvarotrigo/fullPage.js
     $('#fullpage').fullpage({
-        sectionsColor: ['#1bbc9b', '#4BBFC3', '#90ee90', '#ccddff', '#FFC1C1', '#EE9090','#C85B5B'],
+        sectionsColor: ['#1bbc9b', '#4BBFC3'],
         anchors: ['helloPage', 'mostRev'],
         menu: '#menu',
-        lockAnchors: true,
+        lockAnchors: false,
         navigation: false,
         scrollingSpeed: 700
     });
@@ -92,33 +135,59 @@ $(document).ready(function() {
             info.append("<p >5.The article with the shortest history:<br/>  <span>"
                 + a._id
                 + "</span> <br/>Start from: <span>"
-                + a.firRev.toString().slice(0,9)
+                + a.firRev.toString().slice(0,10)
                 +"</span></p>");
             info.append("<p >6.The article with the longest history:<br/>  <span>"
                 + b._id +"</span> <br/>Start from: <span>"
-                + b.firRev.toString().slice(0,9)
+                + b.firRev.toString().slice(0,10)
                 +"</span></p>");
         }
     });
-    //full-set figs
+    //full-set figs data
     $.ajax({
         type: "get",
         dataType: "text",
-        url: "/fullUserPieChart",
+        url: "/fullUserData",
         success: function (msg) {
             msg = msg.split('|');
             let info = [];
             msg.forEach(
                 (ele,idx) => {info[idx] = JSON.parse(ele)
             });
-            for (let i of info){
-                alert(i[0]._id);
-            }
-            //
-
+            allBarData = formatDataByTime(info);
+            allPieData = formatDataToSum(info);
         }
     });
-
+    $('#fullset-bar').click(function (event) {
+        event.preventDefault();
+        let visData = google.visualization.arrayToDataTable(
+            allBarData
+        );
+        let options = {
+            chart: {
+                title: 'Total static'
+            },
+            'width':600,
+            'height':480
+        };
+        let chart = new google.charts.Bar($("#fullInfo-bar")[0]);
+        chart.draw(visData, google.charts.Bar.convertOptions(options));
+    });
+    $('#fullset-pie').click(function (event) {
+        event.preventDefault();
+        let visData = google.visualization.arrayToDataTable(
+            allPieData
+        );
+        let options = {
+            chart: {
+                title: 'Total static'
+            },
+            'width':600,
+            'height':480
+        };
+        let chart = new google.visualization.PieChart($("#fullInfo-bar")[0]);
+        chart.draw(visData, options);
+    });
 });
 
 /*
