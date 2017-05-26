@@ -4,7 +4,6 @@
 let AnalyWiki = require('../models/analy.js');
 let url = require('url');
 let qs = require('querystring');
-let async = require('async');
 
 //render page
 let showPage = (req,res) => res.render('fullPage.pug');
@@ -20,8 +19,8 @@ function getTitle(req,res){
     });
 };
 // get the full set statistic result
-function revNumArticle(req,res) {
-    AnalyWiki.revNumofArticle((err,result)=>{
+function eachArticleRevisionNum(req,res) {
+    AnalyWiki.eachArticleRevisionNum((err,result)=>{
         if(err) console.log(err.message);
         else {
             res.send(result);
@@ -29,9 +28,8 @@ function revNumArticle(req,res) {
         }
     });
 };
-// //
-function registerNumArticle(req,res) {
-    AnalyWiki.registerUserofArticle((err,result)=>{
+function registerUserEachArticle(req,res) {
+    AnalyWiki.registerUserEachArticle((err,result)=>{
         if(err) console.log(err.message);
         else {
             res.send(result);
@@ -39,9 +37,8 @@ function registerNumArticle(req,res) {
         }
     });
 };
-// //
-function historyArticle(req,res) {
-    AnalyWiki.historyofArticle((err,result)=>{
+function historyForArticle(req,res) {
+    AnalyWiki.historyForArticle((err,result)=>{
         if(err) console.log(err.message);
         else {
             res.send(result);
@@ -52,7 +49,7 @@ function historyArticle(req,res) {
 /*
  *find the number of
  */
-function fullUserData(req,res) {
+function fullSetUserData(req,res) {
     res.writeHead(200, {"Content-Type": "text"});
     AnalyWiki.adminStatistic((err,result)=> {
         if (err) console.log(err.message);
@@ -60,7 +57,7 @@ function fullUserData(req,res) {
         AnalyWiki.botStatistic((err,result)=> {
             if (err) console.log(err.message);
             else res.write(JSON.stringify(result)+'|');
-            AnalyWiki.registerUserStatistic((err,result)=> {
+            AnalyWiki.normalUserStatistic((err,result)=> {
                 if (err) console.log(err.message);
                 else res.write(JSON.stringify(result)+'|');
                 AnalyWiki.anonStatistic((err,result)=> {
@@ -76,10 +73,10 @@ function fullUserData(req,res) {
 module.exports={
     showPage:showPage,
     getTitle:getTitle,
-    revNumArticle:revNumArticle,
-    registerNumArticle,registerNumArticle,
-    historyArticle,historyArticle,
-    fullUserData,fullUserData
+    eachArticleRevisionNum:eachArticleRevisionNum,
+    registerUserEachArticle:registerUserEachArticle,
+    historyForArticle:historyForArticle,
+    fullSetUserData:fullSetUserData
     // lastRevArticle:lastRevArticle,
     // mostResisterUserArticle:mostResisterUserArticle,
     // lastResisterUserArticle:lastResisterUserArticle,

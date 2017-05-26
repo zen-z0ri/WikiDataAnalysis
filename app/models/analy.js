@@ -4,21 +4,21 @@
 let mongoose = require('./db');
 let fs = require('./fs');
 
-console.log(fs.botList); //[903]
-console.log("__________________________________________")
-console.log(fs.admList); //[576]
-
 //define the schema
 let AnalySchema = new mongoose.Schema(
     {title: String,
         timestamp: String,
         user: String,
         anon: String},
-    {
-        versionKey: false}
+    {versionKey: false}
 );
 
-//use to search title for search box
+/**
+ * Used to search title for search box
+ * @param title It's the letters that user enter to search
+ * @param callback
+ * @returns {Promise}
+ */
 AnalySchema.statics.searchTitle = function (title, callback) {
     let reg = '^'+title+'.*';
     let treg = new RegExp(reg,'i');
@@ -30,11 +30,16 @@ AnalySchema.statics.searchTitle = function (title, callback) {
     ]).exec(callback);
 };
 
-/*
- * methods used in full set statistic
+/**
+ * Methods used in full set statistic
  */
-//used to find the revision numbers statistic in full set
-AnalySchema.statics.revNumofArticle = function (callback) {
+/**
+ * Used to find the revision numbers statistic in full set
+ * of each article
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.eachArticleRevisionNum = function (callback) {
     return this.aggregate([
         {$group: {
             _id: "$title",
@@ -43,13 +48,18 @@ AnalySchema.statics.revNumofArticle = function (callback) {
         {$sort: {revNum: -1} }//large to small
     ]).exec(callback);
 };
-//used to find the article edited by registered users in full set
-AnalySchema.statics.registerUserofArticle = function (callback) {
+/**
+ * Used to find the article edited by registered users in full set
+ * registered users: is the users are not anons
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.registerUserEachArticle = function (callback) {
    return this.aggregate([
        {$match: {
            $and: [
-               {user: {$nin: fs.botList} },
-               {user: {$nin: fs.botList} },
+               // {user: {$nin: fs.botList} },
+               // {user: {$nin: fs.botList} },
                {anon: {$exists: false} }
            ]
        }},
@@ -62,8 +72,12 @@ AnalySchema.statics.registerUserofArticle = function (callback) {
        {$sort: {uniqueUserCount: -1} }//large to small
    ]).exec(callback)
 };
-//used to find the history of the article in full set
-AnalySchema.statics.historyofArticle = function (callback) {
+/**
+ * Used to find the history of each article in full set
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.historyForArticle = function (callback) {
     return this.aggregate([
         {$group: {
             _id: "$title",
@@ -73,20 +87,20 @@ AnalySchema.statics.historyofArticle = function (callback) {
     ]).exec(callback);
 };
 
-/*
- * used to bar chart of revision number distribution
- * by year and by user type
- * year from the old to fresh
- * if both in admin and bot, treat as a bot
+/**
+ * Methods used to full set revision static figs
+ * by year and by four user types
  */
-// used to show the admin statistic (if both in admin and bot, treat as bot)
+/**
+ * Used to show the admin statistic
+ * (if both in admin and bot, treat as admin)
+ * @param callback
+ * @returns {Promise}
+ */
 AnalySchema.statics.adminStatistic = function (callback) {
     return this.aggregate([
         {$match: {
-            $and: [
-                {user: {$in: fs.admList} },
-                {user: {$nin: fs.botList} }
-            ]
+            user: {$in: fs.admList}
         }},
         {$project: {
             Year: {$substr: ["$timestamp", 0, 4] },
@@ -98,11 +112,19 @@ AnalySchema.statics.adminStatistic = function (callback) {
         {$sort: {_id : 1} }
     ]).exec(callback);
 };
-//used to show the bot statistic
+/**
+ * Used to show the bot statistic
+ * (if both in admin and bot, treat as admin)
+ * @param callback
+ * @returns {Promise}
+ */
 AnalySchema.statics.botStatistic = function (callback) {
     return this.aggregate([
         {$match: {
-            user: {$in: fs.botList}
+            $and: [
+                {user: {$nin: fs.admList} },
+                {user: {$in: fs.botList} }
+            ]
         }},
         {$project: {
             Year: {$substr: ["$timestamp", 0, 4] },
@@ -114,8 +136,13 @@ AnalySchema.statics.botStatistic = function (callback) {
         {$sort: {_id: 1} }
     ]).exec(callback);
 };
-//used to show the register user statistic
-AnalySchema.statics.registerUserStatistic = function (callback) {
+/**
+ * Used to show the normal user statistic
+ * normal user: (NOT admin)&&(NOT bot)&&(NOT anon)
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.normalUserStatistic = function (callback) {
     return this.aggregate([
         {$match: {
             $and: [
@@ -134,7 +161,11 @@ AnalySchema.statics.registerUserStatistic = function (callback) {
         {$sort: {_id: 1} }
     ]).exec(callback);
 };
-//used to show the anon statistic
+/**
+ * Used to show the anons statistic
+ * @param callback
+ * @returns {Promise}
+ */
 AnalySchema.statics.anonStatistic = function (callback) {
     return this.aggregate([
         {$match: {
@@ -150,7 +181,6 @@ AnalySchema.statics.anonStatistic = function (callback) {
         {$sort: {_id: 1} }
     ]).exec(callback);
 };
-
 
 //use model and export model
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');

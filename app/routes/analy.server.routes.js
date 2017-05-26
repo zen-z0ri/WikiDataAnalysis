@@ -3,18 +3,26 @@
  */
 let express = require('express');
 let controller = require('../controllers/analy.server.controller');
-
 let router = express.Router();
 
-router.get('/',controller.showPage); //url path
-
+/**
+ * render page
+ */
+router.get('/',controller.showPage);
+/**
+ * For search box to search letters
+ */
 router.get('/getTitle', controller.getTitle);
-//ajax to find the info of several feature
-router.get('/revNumArticle', controller.revNumArticle);
-router.get('/registerNumArticle', controller.registerNumArticle);
-router.get('/historyArticle', controller.historyArticle);
-//full set figs
-router.get('/fullUserData', controller.fullUserData);
+/**
+ * Three methods to show the text static of full set
+ */
+router.get('/revNumArticle', controller.eachArticleRevisionNum);
+router.get('/registerNumArticle', controller.registerUserEachArticle);
+router.get('/historyArticle', controller.historyForArticle);
+/**
+ * To show the full set static figs
+ */
+router.get('/fullUserData', controller.fullSetUserData);
 // router.post('/mostResisterUserArticle', controller.mostResisterUserArticle);
 // router.post('/lastResisterUserArticle', controller.lastResisterUserArticle);
 // router.post('/longHistoryArticle', controller.longHistoryArticle);

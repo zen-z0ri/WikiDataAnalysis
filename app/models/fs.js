@@ -22,10 +22,13 @@
 let fs = require('fs');
 var botList;
 var admList;
-let readList =(fPath)=>fs.readFileSync(fPath, 'utf8', (err, fd) => {
-    if (err) {
-        console.error(fPath+'does not exist');
-    }
+/**
+ * Used to read the bot list and admin list
+ * store them in the global variable
+ * @param fPath
+ */
+let readList =(fPath) => fs.readFileSync(fPath, 'utf8', (err, fd) => {
+    if (err) console.error(fPath+'does not exist');
     return fd;
 });
 botList = readList('bot.txt').toString().trim().split('\n');

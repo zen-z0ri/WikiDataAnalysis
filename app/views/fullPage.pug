@@ -13,6 +13,8 @@ head
         content='fullpage,jquery,single page,wikipedia,data-mining')
     meta(name='Description'
         content='A web app can analyze the data from wikipedia')
+    link(href="https://fonts.googleapis.com/css?family=Roboto"
+        rel="stylesheet")
     //use the fullpage template
     link(rel='shortcut icon'
         href='/pic/favicon.ico'
@@ -25,6 +27,7 @@ head
         src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
     script(type='text/javascript'
         src='/js/jquery.fullpage.js')
+    // google chart
     script(type="text/javascript"
         src="https://www.gstatic.com/charts/loader.js")
 body
@@ -43,9 +46,6 @@ body
     div(id='fullpage')
         //hello page
         div(class='section' id='section1')
-            h2 This is an app to analysis wiki
-            h3 The data base is update at:
-                span(id='dbDate') #{dbPullD}
             div(class='sArea')
                 input(id='sText'
                     type='search'

@@ -1,6 +1,5 @@
-    /**
- * 1.initial page script
- * 2.tung extend funcitons for reactive page
+/**
+ * Created by tung on 12/05/17.
  */
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
@@ -51,7 +50,6 @@ function formatDataToSum(info) {
         }
         data[idx+1].push(sum);
     });
-    alert(data.toString());
     return data;
 }
 $(document).ready(function() {
@@ -168,7 +166,14 @@ $(document).ready(function() {
                 title: 'Total static'
             },
             'width':600,
-            'height':480
+            'height':480,
+            backgroundColor: '#4BBFC3',
+            chartArea:{
+                backgroundColor: '#4BBFC3'
+            },
+            hAxis: {
+                textStyle:{color: '#ffffff'}
+            }
         };
         let chart = new google.charts.Bar($("#fullInfo-bar")[0]);
         chart.draw(visData, google.charts.Bar.convertOptions(options));
@@ -183,7 +188,11 @@ $(document).ready(function() {
                 title: 'Total static'
             },
             'width':600,
-            'height':480
+            'height':480,
+            backgroundColor: '#4BBFC3',
+            hAxis: {
+                textStyle:{color: '#ffffff'}
+            }
         };
         let chart = new google.visualization.PieChart($("#fullInfo-bar")[0]);
         chart.draw(visData, options);
@@ -198,5 +207,3 @@ $(document).on('click','.titSelect',function(){
     $('#sText').val($(this).html());
     $(this).parent('#infoBox').fadeToggle("slow");
 });
-
-//rend the full-set figs
