@@ -3,15 +3,29 @@
  */
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
-// google.charts.setOnLoadCallback(drawChart);
+
 //data for figs
 var allBarData;
 var allPieData;
 var indiviBarData;
 var indiviPieData;
 var userRevBarData;
-//process data for correct format of figs
+/**
+ * Process data for correct format of bar chart
+ * to four type users by year
+ * @param info The Array of four infomation JSON array
+ * each of them shows a type of user by static year
+ * @returns {Array}
+ * From [admin:{2001,num},{2002,num}...],
+ *      [bot:{2001,num},{2002,num}...],
+ *      [regular:{2001,num},{2002,num}...],
+ *      [anon:{2001,num},{2002,num}...]
+ * To [ ['Years', 'admin', 'bot', 'regular', 'anon'],
+ *      ['2001', 'num', 'num', 'num', 'num'],
+ *      ['2002', 'num', 'num', 'num', 'num'],...]
+ */
 function formatDataByTime(info) {
+    //find the range of the year
     let minY = Math.min(info[0][0]._id,
         info[1][0]._id,
         info[2][0]._id,
@@ -20,22 +34,45 @@ function formatDataByTime(info) {
         info[1][info[1].length-1]._id,
         info[2][info[2].length-1]._id,
         info[3][info[3].length-1]._id);
+    //data is the OUTPUT
     let data = [];
     for (let i = minY; i <= maxY; i++ ){
         data.push([i.toString(10)]);
     }
-        info.forEach((jsonArr,idx) => {
-            jsonArr.forEach((ele,eIdx) =>{
-                for (let i = 0; i < data.length; i++) {
-                    if (ele._id == data[i][0]) {
-                        data[i][idx+1]=ele.count;
-                    }
+    /**
+     * For each json array of four type user
+     * for each year
+     * put the num into the correct pace of data
+     */
+    info.forEach((jsonArr,idx) => {
+        jsonArr.forEach((ele,eIdx) =>{
+            for (let i = 0; i < data.length; i++) {
+                if (ele._id == data[i][0]) {
+                    data[i][idx+1]=ele.count;
                 }
-            });
+            }
         });
+    });
+    // set the header
     data.unshift(['Years', 'admin', 'bot', 'regular', 'anon']);
     return data;
 };
+/**
+ * Process data for correct format of pie chart
+ * to four type users by year
+ * @param info The Array of four infomation JSON array
+ * each of them shows a type of user by static year
+ * @returns {Array}
+ * From [admin:{2001,num},{2002,num}...],
+ *      [bot:{2001,num},{2002,num}...],
+ *      [regular:{2001,num},{2002,num}...],
+ *      [anon:{2001,num},{2002,num}...]
+ * To [['UserType', 'number'],
+ *     ['admin', totalNum],
+ *     ['bot', totalNum],
+ *     ['regular', totalNum],
+ *     ['anon', totalNum]];
+ */
 function formatDataToSum(info) {
     let data = [['UserType', 'number'],
         ['admin'],
@@ -52,8 +89,11 @@ function formatDataToSum(info) {
     });
     return data;
 }
+/**
+ * DOCUMENT READY
+ */
 $(document).ready(function() {
-    //https://github.com/alvarotrigo/fullPage.js
+    //set the full page module
     $('#fullpage').fullpage({
         sectionsColor: ['#1bbc9b', '#4BBFC3'],
         anchors: ['helloPage', 'mostRev'],
@@ -80,7 +120,7 @@ $(document).ready(function() {
             }
         });
     });
-    //rend the full-set text analysis
+    //rend the full-set text statics
     $.ajax({
         type: "get",
         dataType: "json",
@@ -141,7 +181,11 @@ $(document).ready(function() {
                 +"</span></p>");
         }
     });
-    //full-set figs data
+    /**
+     * get the data from the full set four type users
+     * Parse it from string to a array includes four JSON arrays
+     * and trans these data to the Google chart accept format
+     */
     $.ajax({
         type: "get",
         dataType: "text",
@@ -156,6 +200,7 @@ $(document).ready(function() {
             allPieData = formatDataToSum(info);
         }
     });
+    //plot two figs of full set level
     $('#fullset-bar').click(function (event) {
         event.preventDefault();
         let visData = google.visualization.arrayToDataTable(
@@ -199,8 +244,8 @@ $(document).ready(function() {
     });
 });
 
-/*
- *the dynamic extend html need to rebind the event!
+/**
+ *Log: the dynamic extend html need to rebind the event!
  *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
  */
 $(document).on('click','.titSelect',function(){
