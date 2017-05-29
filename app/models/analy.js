@@ -45,8 +45,14 @@ AnalySchema.statics.searchTitle = function (tit, callback) {
  * @param callback
  * @returns {Promise}
  */
-AnalySchema.statics.eachArticleRevisionNum = function (callback) {
+AnalySchema.statics.eachArticleRevisionNum = function (callback, tit) {
+    let trep;
+    if(tit === undefined)  trep = new RegExp(tit);
+    else  trep = tit;
     return this.aggregate([
+        {$match:
+            {title: trep}
+        },
         {$group: {
             _id: "$title",
             revNum: {$sum: 1}
@@ -228,9 +234,13 @@ AnalySchema.statics.lastRevisionTime = function (callback, tit) {
         .limit(1)
         .exec(callback);
 };
-
-
-AnalySchema.statics.requestWiki =function (tit, rvstart, callback) {
+/**
+ * request Wiki
+ * @param tit request for the special title
+ * @param rvstart from the last revsion time of local DB
+ * @param callback
+ */
+AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
     let wikiEndpoint = 'https://en.wikipedia.org/w/api.php';
     let titStr = "titles="+tit.trim().split(' ').join('%20');
     let rvstartStr = "rvstart="+rvstart.toISOString();
@@ -255,24 +265,63 @@ AnalySchema.statics.requestWiki =function (tit, rvstart, callback) {
             console.log('Status:', res.statusCode);
         } else {
             console.log("Wiki fetch success");
-            json = JSON.parse(data);
-            pages = json.query.pages;
+            let json = JSON.parse(data);
+            let pages = json.query.pages;
             revisions = pages[Object.keys(pages)[0]].revisions;
             revisions.shift();
             callback(revisions);
-            // if(revisions.length === 0){
-            //     console.log("It's already up to date");
-            // }else{
-            //     revisions.forEach((ele) =>{
-            //         ele.title = tit;
-            //     });
-            //     AnalyWiki.insertMany(revisions);
-            //     console.log("There are " + revisions.length + " revisions insert.");
-            // }
         }
     });
 };
-
+/**
+ * find the five TOP user of a individual article
+ * @param tit
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.topUser = function (tit, callback){
+    return this.aggregate([
+        {$match: {
+            $and: [
+                {user: {$nin: fs.botList} },
+                {user: {$nin: fs.admList} },
+                {anon: {$exists: false} },
+                {title: tit}
+            ]
+        }},
+        {$group: {
+            _id: "$user",
+            revNum: {$sum: 1}
+        }},
+        {$sort: {revNum: -1} },
+        {$limit: 5}//large to small
+    ]).exec(callback);
+};
+/**
+ * get the single user for a individual article
+ * @param tit title
+ * @param user
+ * @param callback
+ * @returns {Promise}
+ */
+AnalySchema.statics.individualUserStatic = function (tit, user, callback){
+    return this.aggregate([
+        {$match: {
+            $and: [
+                {user: user },
+                {title: tit}
+            ]
+        }},
+        {$project: {
+            Year: {$substr: ["$timestamp", 0, 4] },
+        }},
+        {$group: {
+            _id: "$Year",
+            count: {$sum : 1}
+        }},
+        {$sort: {_id : 1} }
+    ]).exec(callback);
+};
 
 //use model and export model
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');

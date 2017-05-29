@@ -3,7 +3,6 @@
  */
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
-
 //data for figs
 var allBarData;
 var allPieData;
@@ -25,15 +24,16 @@ var userRevBarData;
  *      ['2002', 'num', 'num', 'num', 'num'],...]
  */
 function formatDataByTime(info) {
+    info = info.filter(ele => (ele.length>0));
     //find the range of the year
-    let minY = Math.min(info[0][0]._id,
-        info[1][0]._id,
-        info[2][0]._id,
-        info[3][0]._id);
-    let maxY = Math.max(info[0][info[0].length-1]._id,
-        info[1][info[1].length-1]._id,
-        info[2][info[2].length-1]._id,
-        info[3][info[3].length-1]._id);
+    let minY = info[0][0]._id;
+    let maxY = info[0][info[0].length-1]._id;
+    info.forEach(ele => {
+        ele[0]._id<minY ?
+            (minY = ele[0]._id):(minY = minY);
+        ele[ele.length-1]._id>maxY ?
+            (maxY = ele[ele.length-1]._id) : (maxY = maxY);
+    });
     //data is the OUTPUT
     let data = [];
     for (let i = minY; i <= maxY; i++ ){
@@ -53,8 +53,16 @@ function formatDataByTime(info) {
             }
         });
     });
-    // set the header
+    // set the header and fill the array with 0 to format
     data.unshift(['Years', 'admin', 'bot', 'regular', 'anon']);
+    data.forEach((ele) => {
+        if(ele.length<5){
+            let s = 5-ele.length;
+            for(let i = 0; i < s; i++){
+                ele.push(0)
+            }
+        }
+    })
     return data;
 };
 /**
@@ -87,6 +95,18 @@ function formatDataToSum(info) {
         }
         data[idx+1].push(sum);
     });
+    return data;
+}
+/**
+ * format user data to json
+ * @param userJson
+ * @returns {[*]}
+ */
+function formatUserData(userJson) {
+    let data = [['Year', 'RevisionNumbers']];
+    for (let i = 0; i < userJson.length; i++){
+        data.push([userJson[i]._id, userJson[i].count]);
+    }
     return data;
 }
 /**
@@ -129,19 +149,119 @@ $(document).ready(function() {
             url: "/searchArticle",
             data: tit,
             success: function (msg) {
-                // $('#showIndividual').append(msg);
-                // setTimeout(function() {
-                //     $('#showIndividual').empty();
-                // }, 1300);
+                msg = msg.split('|');
+                let individual = $('#showIndividual');
+                $('#topUser').empty();
+                individual.empty();
+                individual.append("<p>Title: "+msg[0]+"</p>");
+                individual.append("<p>New revisions get: "+msg[1]+"</p>");
+                individual.append("<p>Total revision number: "+JSON.parse(msg[2])[0].revNum+"</p>");
+                individual.append("<p>Top 5 users: </p>");
+                let user = JSON.parse(msg[3]);
+                for(let i of user){
+                    individual.append("<p style='text-decoration: underline;'>"+i._id+": "+i.revNum+"</p>");
+                    $('#topUser').append("<option>"+i._id+"</option>");
+                }
+            }
+        });
+    });
+    //down load the data to the figs
+    $('#fetchData').click(function () {
+        let key = {title: $('#sText').val() };
+        $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "/individualArticleData",
+            data: key,
+            success: function (msg) {
                 msg = msg.split('|');
                 let info = [];
                 msg.forEach(
                     (ele,idx) => {info[idx] = JSON.parse(ele)
-                    });
+                });
                 indiviBarData = formatDataByTime(info);
                 indiviPieData = formatDataToSum(info);
             }
         });
+    });
+    /**
+     * three button used to get the data and render figs;
+     */
+    $('#individual-1').click(function (event) {
+        event.preventDefault();
+        let visData = google.visualization.arrayToDataTable(
+            indiviBarData
+        );
+        let options = {
+            chart: {
+                title: 'Individual static: '+$('#sText').val()
+            },
+            'width':550,
+            'height':400,
+            backgroundColor: '#1bbc9b',
+            chartArea:{
+                backgroundColor: '#1bbc9b'
+            },
+            hAxis: {
+                textStyle:{color: '#000000'}
+            }
+        };
+        let chart = new google.charts.Bar($("#individual-fig")[0]);
+        chart.draw(visData, google.charts.Bar.convertOptions(options));
+    });
+    $('#individual-2').click(function (event) {
+        event.preventDefault();
+        let visData = google.visualization.arrayToDataTable(
+            indiviPieData
+        );
+        let options = {
+            chart: {
+                title: 'Individual static: '+$('#sText').val()
+            },
+            'width':550,
+            'height':400,
+            backgroundColor: '#1bbc9b',
+            hAxis: {
+                textStyle:{color: '#ffffff'}
+            }
+        };
+        let chart = new google.visualization.PieChart($("#individual-fig")[0]);
+        chart.draw(visData, options);
+    });
+    $('#individual-3').click(function (event) {
+        let key = {
+            title: $('#sText').val(),
+            user: $('#topUser').val()
+        };
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "/userStatic",
+            data: key,
+            success: function (msg) {
+                userRevBarData = formatUserData(msg);
+                let visData = google.visualization.arrayToDataTable(
+                    userRevBarData
+                );
+                let options = {
+                    chart: {
+                        title: key.user+"' revission static: "+key.title
+                    },
+                    'width':550,
+                    'height':400,
+                    backgroundColor: '#1bbc9b',
+                    chartArea:{
+                        backgroundColor: '#1bbc9b'
+                    },
+                    hAxis: {
+                        textStyle:{color: '#000000'}
+                    }
+                };
+                let chart = new google.charts.Bar($("#individual-fig")[0]);
+                chart.draw(visData, google.charts.Bar.convertOptions(options));
+            }
+        });
+
     });
     //rend the full-set text statics
     $.ajax({
@@ -240,7 +360,7 @@ $(document).ready(function() {
                 backgroundColor: '#4BBFC3'
             },
             hAxis: {
-                textStyle:{color: '#ffffff'}
+                textStyle:{color: '#000000'}
             }
         };
         let chart = new google.charts.Bar($("#fullInfo-bar")[0]);

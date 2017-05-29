@@ -23,6 +23,16 @@ router.get('/historyArticle', controller.historyForArticle);
  * To show the full set static figs
  */
 router.get('/fullUserData', controller.fullSetUserData);
-//f
+/**
+ * to article fetch
+ */
 router.get('/searchArticle', controller.articleFetch);
+/**
+ * get the individual article four for types users
+ */
+router.get('/individualArticleData', controller.individualArticleData);
+/**
+ * single user for single article static
+ */
+router.get('/userStatic',controller.userStatic);
 module.exports = router;

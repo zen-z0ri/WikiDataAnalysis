@@ -51,18 +51,21 @@ body
                 input(id='sText'
                     type='search'
                     placeholder='Please enter the title of article')
-                button(id='pullDB' type='submit') Search
+                select(id='topUser')
+                button(id='pullDB' ) Search
+                button(id='fetchData') Get Data
                 div(id='infoBox')
             ul(id= 'individual-nav')
                 li
-                    a(href='#individual-1')
+                    a(id='individual-1')
                         span 1
                 li
-                    a(href='#individual-2')
+                    a(id='individual-2')
                         span 2
                 li
-                    a(href='#individual-3')
+                    a(id='individual-3')
                         span 3
+            div(id='individual-fig')
         //The article with the most number of revisions.
         div(class='section' id='section2')
             div(class='slide')
