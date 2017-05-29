@@ -93,7 +93,7 @@ function formatDataToSum(info) {
  * DOCUMENT READY
  */
 $(document).ready(function() {
-    //set the full page module
+    //set the full page setting
     $('#fullpage').fullpage({
         sectionsColor: ['#1bbc9b', '#4BBFC3'],
         anchors: ['helloPage', 'mostRev'],
@@ -117,6 +117,29 @@ $(document).ready(function() {
                 for (let i = 0; i < msg.length; i++) {
                     infoBox.append("<p class='titSelect'>" + msg[i]._id + "</p>");
                 }
+            }
+        });
+    });
+    // check if the artle up to data, otherwise fetch new data
+    $('#pullDB').click(function () {
+        let tit = { sText: $('#sText').val() };
+        $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "/searchArticle",
+            data: tit,
+            success: function (msg) {
+                // $('#showIndividual').append(msg);
+                // setTimeout(function() {
+                //     $('#showIndividual').empty();
+                // }, 1300);
+                msg = msg.split('|');
+                let info = [];
+                msg.forEach(
+                    (ele,idx) => {info[idx] = JSON.parse(ele)
+                    });
+                indiviBarData = formatDataByTime(info);
+                indiviPieData = formatDataToSum(info);
             }
         });
     });

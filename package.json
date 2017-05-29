@@ -21,9 +21,9 @@
     "express": "^4.15.2",
     "fs": "0.0.1-security",
     "fullpage.js": "^2.9.4",
-    "http": "0.0.0",
     "mongoose": "^4.9.8",
     "path": "^0.12.7",
-    "pug": "^2.0.0-rc.1"
+    "pug": "^2.0.0-rc.1",
+    "request": "^2.81.0"
   }
 }

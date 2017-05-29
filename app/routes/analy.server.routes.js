@@ -23,9 +23,6 @@ router.get('/historyArticle', controller.historyForArticle);
  * To show the full set static figs
  */
 router.get('/fullUserData', controller.fullSetUserData);
-// router.post('/mostResisterUserArticle', controller.mostResisterUserArticle);
-// router.post('/lastResisterUserArticle', controller.lastResisterUserArticle);
-// router.post('/longHistoryArticle', controller.longHistoryArticle);
-// router.post('/shortHistoryArticle', controller.shortHistoryArticle);
-
+//f
+router.get('/searchArticle', controller.articleFetch);
 module.exports = router;
