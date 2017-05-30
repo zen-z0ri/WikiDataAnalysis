@@ -115,7 +115,7 @@ function formatUserData(userJson) {
 $(document).ready(function() {
     //set the full page setting
     $('#fullpage').fullpage({
-        sectionsColor: ['#c8c8c8', '#78909c'],
+        sectionsColor: ['#1BBC9B', '#4bbfc3'],
         anchors: ['helloPage', 'mostRev'],
         menu: '#menu',
         lockAnchors: false,
@@ -200,9 +200,9 @@ $(document).ready(function() {
             },
             'width':550,
             'height':400,
-            backgroundColor: '#c8c8c8',
+            backgroundColor: '#1BBC9B',
             chartArea:{
-                backgroundColor: '#c8c8c8'
+                backgroundColor: '#1BBC9B'
             },
             hAxis: {
                 textStyle:{color: '#000000'}
@@ -222,7 +222,7 @@ $(document).ready(function() {
             },
             'width':550,
             'height':400,
-            backgroundColor: '#c8c8c8',
+            backgroundColor: '#1BBC9B',
             hAxis: {
                 textStyle:{color: '#ffffff'}
             }
@@ -251,9 +251,9 @@ $(document).ready(function() {
                     },
                     'width':550,
                     'height':400,
-                    backgroundColor: '#c8c8c8',
+                    backgroundColor: '#1BBC9B',
                     chartArea:{
-                        backgroundColor: '#c8c8c8'
+                        backgroundColor: '#1BBC9B'
                     },
                     hAxis: {
                         textStyle:{color: '#000000'}
@@ -357,9 +357,9 @@ $(document).ready(function() {
             },
             'width':600,
             'height':480,
-            backgroundColor: '#78909c',
+            backgroundColor: '#4bbfc3',
             chartArea:{
-                backgroundColor: '#78909c'
+                backgroundColor: '#4bbfc3'
             },
             hAxis: {
                 textStyle:{color: '#000000'}
@@ -379,7 +379,7 @@ $(document).ready(function() {
             },
             'width':600,
             'height':480,
-            backgroundColor: '#78909c',
+            backgroundColor: '#4bbfc3',
             hAxis: {
                 textStyle:{color: '#ffffff'}
             }
