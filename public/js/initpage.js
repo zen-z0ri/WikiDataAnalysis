@@ -102,10 +102,30 @@ function formatDataToSum(info) {
  * @param userJson
  * @returns {[*]}
  */
-function formatUserData(userJson) {
-    let data = [['Year', 'RevisionNumbers']];
-    for (let i = 0; i < userJson.length; i++){
-        data.push([userJson[i]._id, userJson[i].count]);
+function formatUserData(msg, user) {
+    //[{"_id":{"year":"2006","us":"YellowMonkey"},"count":59},{"_id":{"year":"2007","us":"YellowMonkey"},"count":26},{"_id":{"year":"2008","us":"AussieLegend"},"count":90},{"_id":{"year":"2008","us":"YellowMonkey"},"count":6},{"_id":{"year":"2009","us":"AussieLegend"},"count":96},{"_id":{"year":"2009","us":"YellowMonkey"},"count":12},{"_id":{"year":"2010","us":"AussieLegend"},"count":51},{"_id":{"year":"2010","us":"YellowMonkey"},"count":182},{"_id":{"year":"2011","us":"AussieLegend"},"count":30},{"_id":{"year":"2012","us":"AussieLegend"},"count":29},{"_id":{"year":"2013","us":"AussieLegend"},"count":39},{"_id":{"year":"2014","us":"AussieLegend"},"count":46},{"_id":{"year":"2015","us":"AussieLegend"},"count":32},{"_id":{"year":"2016","us":"AussieLegend"},"count":22},{"_id":{"year":"2017","us":"AussieLegend"},"count":5}];
+    let a = ['Year'];
+    let head = a.concat(user);
+    let data = [head];
+    let dbody = [];
+    msg.forEach(ele =>{
+        dbody.push(ele._id.year);
+        dbody.push(ele._id.us);
+        dbody.push(ele.count);
+    } )
+    let maxY = dbody[dbody.length-3];
+    let minY = dbody[0];
+    for (let i = minY; i <= maxY; i++ ){
+        data.push([i.toString(10)]);
+    }
+    for(let i = 0; i < dbody.length; i++){
+        for(let j = 0; j < user.length; j++){
+            for(let k = 0; k < data.length; k++){
+                if(dbody[i]==data[k][0]&&dbody[i+1]==user[j]){
+                    data[k][j+1]=dbody[i+2];
+                }
+            }
+        }
     }
     return data;
 }
@@ -235,13 +255,51 @@ $(document).ready(function() {
             title: $('#sText').val(),
             user: $('#topUser').val()
         };
+        if(key.user.length<1){
+            alert("no user select");
+        }
         $.ajax({
             type: "get",
             dataType: "json",
             url: "/userStatic",
             data: key,
             success: function (msg) {
-                userRevBarData = formatUserData(msg);
+                let user = key.user.sort();
+                ///
+                let a = ['Year'];
+                let head = a.concat(user);
+                let data = [head];
+                let dbody = [];
+                msg.forEach(ele =>{
+                    dbody.push(ele._id.year);
+                    dbody.push(ele._id.us);
+                    dbody.push(ele.count);
+                } )
+                let maxY = dbody[dbody.length-3];
+                let minY = dbody[0];
+                for (let i = minY; i <= maxY; i++ ){
+                    data.push([i.toString(10)]);
+                }
+                for(let i = 0; i < dbody.length; i++){
+                    for(let j = 0; j < user.length; j++){
+                        for(let k = 0; k < data.length; k++){
+                            if(dbody[i]==data[k][0]&&dbody[i+1]==user[j]){
+                                data[k][j+1]=dbody[i+2];
+                            }
+                        }
+                    }
+                }
+                let uLength = user.length+1;
+                data.forEach((ele) => {
+                    if(ele.length<uLength){
+                        let s = uLength-ele.length;
+                        for(let i = 0; i < s; i++){
+                            ele.push(0)
+                        }
+                    }
+                });
+                ////
+                userRevBarData = data;
                 let visData = google.visualization.arrayToDataTable(
                     userRevBarData
                 );

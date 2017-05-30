@@ -308,20 +308,18 @@ AnalySchema.statics.individualUserStatic = function (tit, user, callback){
     return this.aggregate([
         {$match: {
             $and: [
-                {user: user },
+                {user: {$in: user} },
                 {title: tit}
             ]
         }},
-        {$project: {
-            Year: {$substr: ["$timestamp", 0, 4] },
-        }},
         {$group: {
-            _id: "$Year",
+            _id: {year: {$substr: ["$timestamp", 0, 4]}, us :"$user" },
             count: {$sum : 1}
         }},
         {$sort: {_id : 1} }
     ]).exec(callback);
 };
+
 
 //use model and export model
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');

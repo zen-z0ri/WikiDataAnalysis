@@ -156,7 +156,7 @@ function articleFetch(req,res){
  * @param res
  */
 function individualArticleData(req, res){
-    let title = req.query.title;
+    let title = req.query.sText;
     console.log("Get data of: "+title);
     fullSetUserData(req, res, title);
 }
@@ -172,7 +172,6 @@ function userStatic(req, res) {
     AnalyWiki.individualUserStatic(title, user, (err, result) => {
         if (err) console.log(err.message);
         else  res.send(result);
-        res.end();
     });
 }
 module.exports={
