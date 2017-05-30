@@ -115,7 +115,7 @@ function formatUserData(userJson) {
 $(document).ready(function() {
     //set the full page setting
     $('#fullpage').fullpage({
-        sectionsColor: ['#1bbc9b', '#4BBFC3'],
+        sectionsColor: ['#c8c8c8', '#78909c'],
         anchors: ['helloPage', 'mostRev'],
         menu: '#menu',
         lockAnchors: false,
@@ -140,9 +140,11 @@ $(document).ready(function() {
             }
         });
     });
-    // check if the artle up to data, otherwise fetch new data
+    // check if the article up to data, otherwise fetch new data
     $('#pullDB').click(function () {
         let tit = { sText: $('#sText').val() };
+        let individual = $('#showIndividual');
+        individual.append('<p> Getting the wiki... </p>');
         $.ajax({
             type: "get",
             dataType: "text",
@@ -150,7 +152,6 @@ $(document).ready(function() {
             data: tit,
             success: function (msg) {
                 msg = msg.split('|');
-                let individual = $('#showIndividual');
                 $('#topUser').empty();
                 individual.empty();
                 individual.append("<p>Title: "+msg[0]+"</p>");
@@ -162,27 +163,28 @@ $(document).ready(function() {
                     individual.append("<p style='text-decoration: underline;'>"+i._id+": "+i.revNum+"</p>");
                     $('#topUser').append("<option>"+i._id+"</option>");
                 }
-            }
-        });
-    });
-    //down load the data to the figs
-    $('#fetchData').click(function () {
-        let key = {title: $('#sText').val() };
-        $.ajax({
-            type: "get",
-            dataType: "text",
-            url: "/individualArticleData",
-            data: key,
-            success: function (msg) {
-                msg = msg.split('|');
-                let info = [];
-                msg.forEach(
-                    (ele,idx) => {info[idx] = JSON.parse(ele)
+                $.ajax({
+                    type: "get",
+                    dataType: "text",
+                    url: "/individualArticleData",
+                    data: tit,
+                    success: function (msg) {
+                        msg = msg.split('|');
+                        let info = [];
+                        msg.forEach(
+                            (ele,idx) => {info[idx] = JSON.parse(ele)
+                            });
+                        indiviBarData = formatDataByTime(info);
+                        indiviPieData = formatDataToSum(info);
+                    }
                 });
-                indiviBarData = formatDataByTime(info);
-                indiviPieData = formatDataToSum(info);
+            },
+            error: function () {
+                individual.append('Invalid title !');
+                setTimeout(function(){ individual.empty() }, 3000);
             }
         });
+        $('#individual-1').mousedown();
     });
     /**
      * three button used to get the data and render figs;
@@ -198,9 +200,9 @@ $(document).ready(function() {
             },
             'width':550,
             'height':400,
-            backgroundColor: '#1bbc9b',
+            backgroundColor: '#c8c8c8',
             chartArea:{
-                backgroundColor: '#1bbc9b'
+                backgroundColor: '#c8c8c8'
             },
             hAxis: {
                 textStyle:{color: '#000000'}
@@ -220,7 +222,7 @@ $(document).ready(function() {
             },
             'width':550,
             'height':400,
-            backgroundColor: '#1bbc9b',
+            backgroundColor: '#c8c8c8',
             hAxis: {
                 textStyle:{color: '#ffffff'}
             }
@@ -245,13 +247,13 @@ $(document).ready(function() {
                 );
                 let options = {
                     chart: {
-                        title: key.user+"' revission static: "+key.title
+                        title: key.user+"'s revission static: "+key.title
                     },
                     'width':550,
                     'height':400,
-                    backgroundColor: '#1bbc9b',
+                    backgroundColor: '#c8c8c8',
                     chartArea:{
-                        backgroundColor: '#1bbc9b'
+                        backgroundColor: '#c8c8c8'
                     },
                     hAxis: {
                         textStyle:{color: '#000000'}
@@ -355,15 +357,15 @@ $(document).ready(function() {
             },
             'width':600,
             'height':480,
-            backgroundColor: '#4BBFC3',
+            backgroundColor: '#78909c',
             chartArea:{
-                backgroundColor: '#4BBFC3'
+                backgroundColor: '#78909c'
             },
             hAxis: {
                 textStyle:{color: '#000000'}
             }
         };
-        let chart = new google.charts.Bar($("#fullInfo-bar")[0]);
+        let chart = new google.charts.Bar($("#fullInfo-fig")[0]);
         chart.draw(visData, google.charts.Bar.convertOptions(options));
     });
     $('#fullset-pie').click(function (event) {
@@ -377,12 +379,12 @@ $(document).ready(function() {
             },
             'width':600,
             'height':480,
-            backgroundColor: '#4BBFC3',
+            backgroundColor: '#78909c',
             hAxis: {
                 textStyle:{color: '#ffffff'}
             }
         };
-        let chart = new google.visualization.PieChart($("#fullInfo-bar")[0]);
+        let chart = new google.visualization.PieChart($("#fullInfo-fig")[0]);
         chart.draw(visData, options);
     });
 });

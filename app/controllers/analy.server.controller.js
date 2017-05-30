@@ -140,7 +140,11 @@ function articleFetch(req,res){
                         console.log("The DB is up to date.")
                     });
                 }
-            }else console.log("Not valid titile");
+            }else {
+                console.log("Not valid titile");
+                res.send("Not valid titile");
+                res.end();
+            }
         }
     }, title);
 };

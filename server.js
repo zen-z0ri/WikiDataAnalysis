@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/',staRoutes); //use revroutes in /revision url path
+app.use('/',staRoutes); //use revroutes
 app.listen(3000, function () {
     console.log('Revision app listening on port 3000!');
 });

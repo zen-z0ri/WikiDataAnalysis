@@ -44,7 +44,7 @@ body
         li(data-menuanchor='mostRev' class='active')
             a(href='#mostRev') Over All Statistics
     div(id='fullpage')
-        //hello page
+        //individual article search
         div(class='section' id='section1')
             h1(id='showIndividual')
             div(class='sArea')
@@ -53,7 +53,6 @@ body
                     placeholder='Please enter the title of article')
                 select(id='topUser')
                 button(id='pullDB' ) Search
-                button(id='fetchData') Get Data
                 div(id='infoBox')
             ul(id= 'individual-nav')
                 li
@@ -66,7 +65,7 @@ body
                     a(id='individual-3')
                         span 3
             div(id='individual-fig')
-        //The article with the most number of revisions.
+        //Full set static
         div(class='section' id='section2')
             div(class='slide')
                 div(class='fullInfo text')
@@ -80,6 +79,6 @@ body
                     li
                         a(id='fullset-pie')
                             span Pie
-                div(id='fullInfo-bar')
+                div(id='fullInfo-fig')
 
 
