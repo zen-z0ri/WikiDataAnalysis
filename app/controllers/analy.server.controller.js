@@ -21,7 +21,7 @@ function getTitle(req,res){
             res.end();
         }
     });
-};
+}
 // Three methods get the full set statistic result for Text
 function eachArticleRevisionNum(req,res) {
     AnalyWiki.eachArticleRevisionNum((err,result)=>{
@@ -31,7 +31,7 @@ function eachArticleRevisionNum(req,res) {
             res.end();
         }
     });
-};
+}
 function registerUserEachArticle(req,res) {
     AnalyWiki.registerUserEachArticle((err,result)=>{
         if(err) console.log(err.message);
@@ -40,7 +40,7 @@ function registerUserEachArticle(req,res) {
             res.end();
         }
     });
-};
+}
 function historyForArticle(req,res) {
     AnalyWiki.historyForArticle((err,result)=>{
         if(err) console.log(err.message);
@@ -49,7 +49,7 @@ function historyForArticle(req,res) {
             res.end();
         }
     });
-};
+}
 /**
  * If have title, send the  four type user of a
  * individual title;
@@ -78,7 +78,7 @@ function fullSetUserData(req, res, title) {
             }, title);
         }, title);
     }, title);
-};
+}
 
 //check the two time gap
 function daysBetween(time1, time2) {
@@ -148,7 +148,7 @@ function articleFetch(req,res){
             }
         }
     }, title);
-};
+}
 /**
  * use to send to send a individual article static
  * of four types users and so on.

@@ -1,15 +1,15 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict';
+'use strict'; // entire script use strict
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
 //data for figs
-var allBarData;
-var allPieData;
-var indiviBarData;
-var indiviPieData;
-var userRevBarData;
+let allBarData;
+let allPieData;
+let indiviBarData;
+let indiviPieData;
+let userRevBarData;
 /**
  * Process data for correct format of bar chart
  * to four type users by year
@@ -31,13 +31,13 @@ function formatDataByTime(info) {
     let maxY = info[0][info[0].length-1]._id;
     info.forEach(ele => {
         ele[0]._id<minY ?
-            (minY = ele[0]._id):(minY = minY);
+            (minY = ele[0]._id) : (minY = minY);
         ele[ele.length-1]._id>maxY ?
             (maxY = ele[ele.length-1]._id) : (maxY = maxY);
     });
     //data is the OUTPUT
     let data = [];
-    for (let i = minY; i <= maxY; i++ ){
+    for (let i = minY; i <= maxY; ++i){
         data.push([i.toString(10)]);
     }
     /**
@@ -45,27 +45,27 @@ function formatDataByTime(info) {
      * for each year
      * put the num into the correct pace of data
      */
+    //forEach faster?
     info.forEach((jsonArr,idx) => {
-        jsonArr.forEach((ele,eIdx) =>{
-            for (let i = 0; i < data.length; i++) {
-                if (ele._id == data[i][0]) {
-                    data[i][idx+1]=ele.count;
+        jsonArr.forEach((ele) =>{
+            data.forEach((dEle, dIdx) => {
+                if (ele._id === data[dIdx][0]) {
+                    data[dIdx][idx+1]=ele.count;
                 }
-            }
+            });
         });
     });
     // set the header and fill the array with 0 to format
     data.unshift(['Years', 'admin', 'bot', 'regular', 'anon']);
     data.forEach((ele) => {
         if(ele.length<5){
-            let s = 5-ele.length;
-            for(let i = 0; i < s; i++){
+            for(let i = 0, short = 5-ele.length; i < short; ++i){
                 ele.push(0)
             }
         }
-    })
+    });
     return data;
-};
+}
 /**
  * Process data for correct format of pie chart
  * to four type users by year
@@ -118,26 +118,25 @@ function formatUserData(msg, user) {
         dbody.push(ele._id.year);
         dbody.push(ele._id.us);
         dbody.push(ele.count);
-    } )
+    });
     let maxY = dbody[dbody.length-3];
     let minY = dbody[0];
-    for (let i = minY; i <= maxY; i++ ){
+    for (let i = minY; i <= maxY; ++i ){
         data.push([i.toString(10)]);
     }
-    for(let i = 0; i < dbody.length; i++){
-        for(let j = 0; j < user.length; j++){
-            for(let k = 0; k < data.length; k++){
-                if(dbody[i]===data[k][0]&&dbody[i+1]===user[j]){
-                    data[k][j+1]=dbody[i+2];
+    dbody.forEach((dbodyEle, dbodyIdx) => {
+        user.forEach((userEle, userIdx) => {
+            data.forEach((dataEle, dataIdx) => {
+                if((dbodyEle === dataEle[0]) && (dbody[dbodyIdx+1] === userEle)){
+                    dataEle[userIdx+1]=dbody[dbodyIdx+2];
                 }
-            }
-        }
-    }
-    let uLength = user.length+1;
+            });
+        });
+    });
+    let dLength = user.length+1;
     data.forEach((ele) => {
-        if(ele.length<uLength){
-            let s = uLength-ele.length;
-            for(let i = 0; i < s; i++){
+        if(ele.length<dLength){
+            for(let i = 0, short = dLength-ele.length; i < short; i++){
                 ele.push(0)
             }
         }
@@ -169,7 +168,7 @@ $(document).ready(function() {
             data: key,
             success: function (msg) {
                 infoBox.html('');
-                for (let i = 0; i < msg.length; i++) {
+                for (let i = 0; i < msg.length; ++i) {
                     infoBox.append("<p class='titSelect'>" + msg[i]._id + "</p>");
                 }
             }

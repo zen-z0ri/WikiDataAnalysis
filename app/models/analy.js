@@ -21,7 +21,7 @@ let AnalySchema = new mongoose.Schema(
 
 /**
  * Used to search title for search box
- * @param title It's the letters that user enter to search
+ * @param tit title It's the letters that user enter to search
  * @param callback
  * @returns {Promise}
  */
@@ -43,6 +43,7 @@ AnalySchema.statics.searchTitle = function (tit, callback) {
  * Used to find the revision numbers statistic in full set
  * of each article
  * @param callback
+ * @param tit
  * @returns {Promise}
  */
 AnalySchema.statics.eachArticleRevisionNum = function (callback, tit) {
@@ -257,7 +258,7 @@ AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
         url: url,
         Accept: 'application/json',
         'Accept-Charset': 'utf-8'
-    }
+    };
     request(options, function (err, res, data) {
         if (err) {
             console.log('Error:', err);
