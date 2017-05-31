@@ -1,6 +1,7 @@
 /**
  * Created by tung on 12/05/17.
  */
+'use strict';
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
 //data for figs
@@ -98,12 +99,17 @@ function formatDataToSum(info) {
     return data;
 }
 /**
- * format user data to json
- * @param userJson
+ * format user json to data array
+ * from: [{"_id":{"year":"2006","us":"YellowMonkey"},"count":59},
+ *        {"_id":{"year":"2007","us":"YellowMonkey"},"count":26},...]
+ * to :  [ ['Years', 'user1', 'user2', 'user3', 'user4'],
+ *      ['2001', 'num', 'num', 'num', 'num'],
+ *      ['2002', 'num', 'num', 'num', 'num'],...]
+ * @param msg  is the user json data
+ * @param user is the user array we want to fetch
  * @returns {[*]}
  */
 function formatUserData(msg, user) {
-    //[{"_id":{"year":"2006","us":"YellowMonkey"},"count":59},{"_id":{"year":"2007","us":"YellowMonkey"},"count":26},{"_id":{"year":"2008","us":"AussieLegend"},"count":90},{"_id":{"year":"2008","us":"YellowMonkey"},"count":6},{"_id":{"year":"2009","us":"AussieLegend"},"count":96},{"_id":{"year":"2009","us":"YellowMonkey"},"count":12},{"_id":{"year":"2010","us":"AussieLegend"},"count":51},{"_id":{"year":"2010","us":"YellowMonkey"},"count":182},{"_id":{"year":"2011","us":"AussieLegend"},"count":30},{"_id":{"year":"2012","us":"AussieLegend"},"count":29},{"_id":{"year":"2013","us":"AussieLegend"},"count":39},{"_id":{"year":"2014","us":"AussieLegend"},"count":46},{"_id":{"year":"2015","us":"AussieLegend"},"count":32},{"_id":{"year":"2016","us":"AussieLegend"},"count":22},{"_id":{"year":"2017","us":"AussieLegend"},"count":5}];
     let a = ['Year'];
     let head = a.concat(user);
     let data = [head];
@@ -121,12 +127,21 @@ function formatUserData(msg, user) {
     for(let i = 0; i < dbody.length; i++){
         for(let j = 0; j < user.length; j++){
             for(let k = 0; k < data.length; k++){
-                if(dbody[i]==data[k][0]&&dbody[i+1]==user[j]){
+                if(dbody[i]===data[k][0]&&dbody[i+1]===user[j]){
                     data[k][j+1]=dbody[i+2];
                 }
             }
         }
     }
+    let uLength = user.length+1;
+    data.forEach((ele) => {
+        if(ele.length<uLength){
+            let s = uLength-ele.length;
+            for(let i = 0; i < s; i++){
+                ele.push(0)
+            }
+        }
+    });
     return data;
 }
 /**
@@ -251,6 +266,7 @@ $(document).ready(function() {
         chart.draw(visData, options);
     });
     $('#individual-3').click(function (event) {
+        event.preventDefault();
         let key = {
             title: $('#sText').val(),
             user: $('#topUser').val()
@@ -265,41 +281,7 @@ $(document).ready(function() {
             data: key,
             success: function (msg) {
                 let user = key.user.sort();
-                ///
-                let a = ['Year'];
-                let head = a.concat(user);
-                let data = [head];
-                let dbody = [];
-                msg.forEach(ele =>{
-                    dbody.push(ele._id.year);
-                    dbody.push(ele._id.us);
-                    dbody.push(ele.count);
-                } )
-                let maxY = dbody[dbody.length-3];
-                let minY = dbody[0];
-                for (let i = minY; i <= maxY; i++ ){
-                    data.push([i.toString(10)]);
-                }
-                for(let i = 0; i < dbody.length; i++){
-                    for(let j = 0; j < user.length; j++){
-                        for(let k = 0; k < data.length; k++){
-                            if(dbody[i]==data[k][0]&&dbody[i+1]==user[j]){
-                                data[k][j+1]=dbody[i+2];
-                            }
-                        }
-                    }
-                }
-                let uLength = user.length+1;
-                data.forEach((ele) => {
-                    if(ele.length<uLength){
-                        let s = uLength-ele.length;
-                        for(let i = 0; i < s; i++){
-                            ele.push(0)
-                        }
-                    }
-                });
-                ////
-                userRevBarData = data;
+                userRevBarData = formatUserData(msg, user);
                 let visData = google.visualization.arrayToDataTable(
                     userRevBarData
                 );
@@ -321,7 +303,6 @@ $(document).ready(function() {
                 chart.draw(visData, google.charts.Bar.convertOptions(options));
             }
         });
-
     });
     //rend the full-set text statics
     $.ajax({
@@ -446,7 +427,6 @@ $(document).ready(function() {
         chart.draw(visData, options);
     });
 });
-
 /**
  *Log: the dynamic extend html need to rebind the event!
  *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements

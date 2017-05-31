@@ -1,6 +1,7 @@
 /**
  * Created by tung on 12/05/17.
  */
+'use strict';
 let AnalyWiki = require('../models/analy.js');
 let url = require('url');
 
@@ -89,7 +90,7 @@ function daysBetween(time1, time2) {
  * @param res
  * @param title
  */
-function writeData(res, title) {
+function writeData(res, title, revisions) {
     res.writeHead(200, {"Content-Type": "text"});
     res.write(title+'|'+revisions.length+'|');
     AnalyWiki.eachArticleRevisionNum((err, result) =>{
@@ -122,21 +123,21 @@ function articleFetch(req,res){
                 let lastTime = new Date(Date.parse(result[0].timestamp));
                 if(daysBetween(current, lastTime)>1){
                     console.log(title+" is out of date");
-                    AnalyWiki.requestWiki(title, lastTime, function () {
+                    AnalyWiki.requestWiki(title, lastTime, function (revisions) {
                         if(revisions.length === 0){
                             console.log("It's already up to date");
-                            writeData(res, title);
+                            writeData(res, title, revisions);
                         }else{
                             revisions.forEach((ele) =>{
                                 ele.title = title;
                             });
                             AnalyWiki.insertMany(revisions);
-                            writeData(res, title);
+                            writeData(res, title, revisions);
                         }
                     });
                 }else{
                     AnalyWiki.requestWiki(title, lastTime, function () {
-                        writeData(res, title);
+                        writeData(res, title, revisions);
                         console.log("The DB is up to date.")
                     });
                 }

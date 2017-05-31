@@ -19,6 +19,7 @@
  *     CSS or js... it search under this 'express.static' variable
  *
  */
+'use strict';
 let fs = require('fs');
 var botList;
 var admList;

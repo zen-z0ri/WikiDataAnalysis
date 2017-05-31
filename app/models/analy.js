@@ -1,6 +1,7 @@
 /**
  * Created by tung on 12/05/17.
  */
+'use strict';
 let mongoose = require('./db');
 let fs = require('./fs');
 let request = require('request');
@@ -10,7 +11,6 @@ let AnalySchema = new mongoose.Schema(
     {title: String,
     timestamp: String,
     user: String,
-    anon: String,
     revid: Number,
     parentid: Number,
     size: Number,
@@ -267,9 +267,9 @@ AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
             console.log("Wiki fetch success");
             let json = JSON.parse(data);
             let pages = json.query.pages;
-            revisions = pages[Object.keys(pages)[0]].revisions;
+            let revisions = pages[Object.keys(pages)[0]].revisions;
             revisions.shift();
-            callback(revisions);
+            callback(revisions);//pass revisions to callback
         }
     });
 };
@@ -298,9 +298,9 @@ AnalySchema.statics.topUser = function (tit, callback){
     ]).exec(callback);
 };
 /**
- * get the single user for a individual article
+ * get the users revision for a individual article by year
  * @param tit title
- * @param user
+ * @param user  the user array we want to fetch
  * @param callback
  * @returns {Promise}
  */
@@ -319,7 +319,6 @@ AnalySchema.statics.individualUserStatic = function (tit, user, callback){
         {$sort: {_id : 1} }
     ]).exec(callback);
 };
-
 
 //use model and export model
 let AnalyWiki = mongoose.model('AnalyWiki', AnalySchema, 'revisions');
