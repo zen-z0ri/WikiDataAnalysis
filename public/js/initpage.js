@@ -5,11 +5,11 @@
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
 //data for figs
-let allBarData;
-let allPieData;
-let indiviBarData;
-let indiviPieData;
-let userRevBarData;
+let allBarData,
+    allPieData,
+    indiviBarData,
+    indiviPieData,
+    userRevBarData;
 /**
  * Process data for correct format of bar chart
  * to four type users by year
