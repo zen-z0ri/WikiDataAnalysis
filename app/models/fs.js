@@ -20,7 +20,7 @@
  *
  */
 'use strict';
-let fs = require('fs');
+const fs = require('fs');
 var botList;
 var admList;
 /**
@@ -28,14 +28,14 @@ var admList;
  * store them in the global variable
  * @param fPath
  */
-let readList =(fPath) => fs.readFileSync(fPath, 'utf8', (err, fd) => {
-    if (err) console.error(fPath+'does not exist');
-    return fd;
+const readList =(fPath) => fs.readFileSync(fPath, 'utf8', (err, fd) => {
+  if (err) console.error(fPath+'does not exist');
+  return fd;
 });
 botList = readList('bot.txt').toString().trim().split('\n');
 admList = readList('admin.txt').toString().trim().split('\n');
 
 module.exports={
-    botList:botList,
-    admList:admList
+  botList:botList,
+  admList:admList
 };

@@ -3,10 +3,10 @@
  * connect to the mongoose
  */
 'use strict';
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 mongoose.connect('mongodb://localhost/wikiAnalysis', function () {
-    console.log('mongodb connected');
+  console.log('mongodb connected');
 });
 
 module.exports = mongoose;

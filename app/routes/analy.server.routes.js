@@ -2,9 +2,9 @@
  * Created by tung on 12/05/17.
  */
 'use strict';
-let express = require('express');
-let controller = require('../controllers/analy.server.controller');
-let router = express.Router();
+const express = require('express');
+const controller = require('../controllers/analy.server.controller');
+const router = express.Router();
 
 /**
  * render page

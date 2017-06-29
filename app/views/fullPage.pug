@@ -23,20 +23,11 @@ head
     link(rel='stylesheet'
         type='text/css'
         href='/css/jquery.fullpage.css')
-    script(type='text/javascript'
-        src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
-    script(type='text/javascript'
-        src='/js/jquery.fullpage.js')
-    // google chart
-    script(type="text/javascript"
-        src="https://www.gstatic.com/charts/loader.js")
-body
     //init loading of the page
-    script(type='text/javascript'
-        src='/js/initpage.js')
     link(rel='stylesheet'
         type='text/css'
         href='/css/selfdefine.css')
+body
     //the nav menu
     ul(id='menu')
         li(data-menuanchor='helloPage' class='active')
@@ -81,5 +72,12 @@ body
                         a(id='fullset-pie')
                             span Pie
                 div(id='fullInfo-fig')
-
-
+    script(type='text/javascript'
+        src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(type='text/javascript'
+        src='/js/jquery.fullpage.js')
+        // google chart
+    script(type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js")
+    script(type='text/javascript'
+        src='/js/initpage.js')
