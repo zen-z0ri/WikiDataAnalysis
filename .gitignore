@@ -1,14 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-### Example user template template
 ### Example user template
-
-# IntelliJ project files
-.idea
-*.iml
-out
-gen### Example user template template
-### Example user template
-
 # IntelliJ project files
 .idea
 *.iml
@@ -16,8 +7,8 @@ out
 gen
 
 # revisions data
-./revisions
+revisions/
 
 # node-modules
-./node_modules
-./ts.js
+node_modules/
+ts.js
