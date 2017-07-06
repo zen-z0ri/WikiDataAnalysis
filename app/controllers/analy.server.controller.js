@@ -50,6 +50,7 @@ function historyForArticle(req,res) {
     }
   });
 }
+
 /**
  * If have title, send the  four type user of a
  * individual title;
@@ -58,50 +59,54 @@ function historyForArticle(req,res) {
  * @param req
  * @param res
  * @param title
+ * @returns {Promise.<void>}
  */
-function fullSetUserData(req, res, title) {
+async function fullSetUserData(req, res, title) {
   res.writeHead(200, {"Content-Type": "text"});
-  AnalyWiki.adminStatistic((err,result) => {
+  await AnalyWiki.adminStatistic((err,result) => {
     if (err) console.log(err.message);
-    else res.write(JSON.stringify(result)+'|');
-    AnalyWiki.botStatistic((err,result) => {
-      if (err) console.log(err.message);
-      else res.write(JSON.stringify(result)+'|');
-      AnalyWiki.normalUserStatistic((err,result) => {
-        if (err) console.log(err.message);
-        else res.write(JSON.stringify(result)+'|');
-        AnalyWiki.anonStatistic((err,result) => {
-          if (err) console.log(err.message);
-          else res.write(JSON.stringify(result));
-          res.end();
-        }, title);
-      }, title);
-    }, title);
+    else  res.write(JSON.stringify(result) + '|');
   }, title);
+  await AnalyWiki.botStatistic((err,result) => {
+    if (err) console.log(err.message);
+    else  res.write(JSON.stringify(result) + '|');
+  }, title);
+  await AnalyWiki.normalUserStatistic((err,result) => {
+    if (err) console.log(err.message);
+    else  res.write(JSON.stringify(result) + '|');
+  }, title);
+  await AnalyWiki.anonStatistic((err,result) => {
+    if (err) console.log(err.message);
+    else  res.write(JSON.stringify(result));
+  }, title);
+  res.end();
 }
 
 //check the two time gap
 function daysBetween(time1, time2) {
   return (time1-time2)/(3600*24*1000);
 }
+
 /**
- * use the write individual article total revision
+ * used to the write individual article total revision
  * number and TOP 5 users
  * @param res
  * @param title
+ * @param revisions
+ * @returns {Promise.<void>}
  */
-function writeData(res, title, revisions) {
+async function writeData(res, title, revisions) {
   res.writeHead(200, {"Content-Type": "text"});
   res.write(title+'|'+revisions.length+'|');
-  AnalyWiki.eachArticleRevisionNum((err, result) =>{
+  await AnalyWiki.eachArticleRevisionNum((err, result) =>{
     if (err) console.log(err.message);
     else  res.write(JSON.stringify(result)+'|');
-    AnalyWiki.topUser(title, (err, result) => {
+  }, title);
+  await AnalyWiki.topUser(title, (err, result) => {
       if (err) console.log(err.message);
       else res.write(JSON.stringify(result));
-      res.end();
-    })
-  }, title);
+  })
+  res.end();
 }
 /**
  * use @AnalyWiki.lastRevisionTime to check the lastRevision
@@ -115,13 +120,13 @@ function articleFetch(req,res){
   let title = req.query.sText;
   console.log("search title "+title);
   AnalyWiki.lastRevisionTime((err,result)=>{
-    if(err) console.log("error happened at search titile");
+    if(err) console.log("error happened at search title");
     else {
       if (result.length>0){
         let current = new Date();
         console.log('The last revision is at '+result[0].timestamp);
         let lastTime = new Date(Date.parse(result[0].timestamp));
-        if(daysBetween(current, lastTime)>1){
+        if(daysBetween(current, lastTime)>1){ 
           console.log(title+" is out of date");
           AnalyWiki.requestWiki(title, lastTime, function (revisions) {
             if(revisions.length === 0){
@@ -142,8 +147,8 @@ function articleFetch(req,res){
           });
         }
       }else {
-        console.log("Not valid titile");
-        res.send("Not valid titile");
+        console.log("Not valid title");
+        res.send("Not valid title");
         res.end();
       }
     }
