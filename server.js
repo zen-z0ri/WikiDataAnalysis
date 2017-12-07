@@ -2,12 +2,12 @@
  * Created by tung on 12/05/17.
  */
 'use strict';
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const staRoutes = require('./app/routes/analy.server.routes');
+let express    = require('express');
+let path       = require('path');
+let bodyParser = require('body-parser');
+let staRoutes  = require('./app/routes/analy.server.routes');
 
-const app = express();
+let app = express();
 
 app.set('views', path.join(__dirname,'app/views'));
 app.use(bodyParser.json());

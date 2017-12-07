@@ -1,41 +1,47 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict'; // entire script use strict
+'use strict';
+// Load the google charts
 google.charts.load('current', {'packages':['corechart']});
 google.charts.load('current', {'packages':['bar']});
+
 //data for figs
-let allBarData,
-    allPieData,
-    indiviBarData,
-    indiviPieData,
-    userRevBarData;
+let allBarData;
+let allPieData;
+let indiviBarData;
+let indiviPieData;
+let userRevBarData;
+
 /**
  * Process data for correct format of bar chart
  * to four type users by year
+ *
+ * From [admin:  {2001,num}, {2002,num}...],
+ *      [bot:    {2001,num}, {2002,num}...],
+ *      [regular:{2001,num}, {2002,num}...],
+ *      [anon:   {2001,num}, {2002,num}...]
+ *
+ * To [ ['Years', 'admin', 'bot', 'regular', 'anon'],
+ *      ['2001',  'num',   'num', 'num',     'num'],
+ *      ['2002',  'num',   'num', 'num',     'num'],...]
+ *
  * @param info The Array of four infomation JSON array
  * each of them shows a type of user by static year
  * @returns {Array}
- * From [admin:{2001,num},{2002,num}...],
- *      [bot:{2001,num},{2002,num}...],
- *      [regular:{2001,num},{2002,num}...],
- *      [anon:{2001,num},{2002,num}...]
- * To [ ['Years', 'admin', 'bot', 'regular', 'anon'],
- *      ['2001', 'num', 'num', 'num', 'num'],
- *      ['2002', 'num', 'num', 'num', 'num'],...]
+ *
  */
-function formatDataByTime(info) {
+const formatDataByTime = (info) => {
   info = info.filter(ele => (ele.length>0));
   //find the range of the year
   let minY = info[0][0]._id;
   let maxY = info[0][info[0].length-1]._id;
   info.forEach(ele => {
-    ele[0]._id<minY ?
-      (minY = ele[0]._id) : (minY = minY);
-    ele[ele.length-1]._id>maxY ?
-      (maxY = ele[ele.length-1]._id) : (maxY = maxY);
+    (ele[0]._id < minY) ? (minY = ele[0]._id) : (minY = minY);
+    (ele[ele.length-1]._id > maxY) ? (maxY = ele[ele.length-1]._id) : (maxY = maxY);
   });
   //data is the OUTPUT
+  // fill the years line
   let data = [];
   for (let i = minY; i <= maxY; ++i){
     data.push([i.toString(10)]);
@@ -45,12 +51,11 @@ function formatDataByTime(info) {
    * for each year
    * put the num into the correct pace of data
    */
-  //forEach faster?
   info.forEach((jsonArr,idx) => {
     jsonArr.forEach((ele) =>{
       data.forEach((dEle, dIdx) => {
         if (ele._id === data[dIdx][0]) {
-          data[dIdx][idx+1]=ele.count;
+          data[dIdx][idx+1] = ele.count;
         }
       });
     });
@@ -58,6 +63,7 @@ function formatDataByTime(info) {
   // set the header and fill the array with 0 to format
   data.unshift(['Years', 'admin', 'bot', 'regular', 'anon']);
   data.forEach((ele) => {
+    //fill the empty elements with 0
     if(ele.length<5){
       for(let i = 0, short = 5-ele.length; i < short; ++i){
         ele.push(0)
@@ -69,27 +75,30 @@ function formatDataByTime(info) {
 /**
  * Process data for correct format of pie chart
  * to four type users by year
+ *
+ * From [admin:  {2001,num}, {2002,num}...],
+ *      [bot:    {2001,num}, {2002,num}...],
+ *      [regular:{2001,num}, {2002,num}...],
+ *      [anon:   {2001,num}, {2002,num}...]
+ *
+ * To [['UserType', 'number'],
+ *     ['admin',    totalNum],
+ *     ['bot',      totalNum],
+ *     ['regular',  totalNum],
+ *     ['anon',     totalNum]];
+ *
  * @param info The Array of four infomation JSON array
  * each of them shows a type of user by static year
  * @returns {Array}
- * From [admin:{2001,num},{2002,num}...],
- *      [bot:{2001,num},{2002,num}...],
- *      [regular:{2001,num},{2002,num}...],
- *      [anon:{2001,num},{2002,num}...]
- * To [['UserType', 'number'],
- *     ['admin', totalNum],
- *     ['bot', totalNum],
- *     ['regular', totalNum],
- *     ['anon', totalNum]];
+ *
  */
-function formatDataToSum(info) {
+const formatDataToSum = (info) => {
   let data = [['UserType', 'number'],
               ['admin'],
               ['bot'],
               ['regular'],
               ['anon']];
   info.forEach((jsonArr, idx) =>{
-    // data[idx+1].push(
     let sum = 0;
     for(let ele of jsonArr){
       sum += ele.count;
@@ -99,20 +108,23 @@ function formatDataToSum(info) {
   return data;
 }
 /**
- * format user json to data array
- * from: [{"_id":{"year":"2006","us":"YellowMonkey"},"count":59},
- *        {"_id":{"year":"2007","us":"YellowMonkey"},"count":26},...]
+ * format the TOP user json to data array
+ *
+ * from: [{"_id":{"year":"2006","us":"user1"},"count":59},
+ *        {"_id":{"year":"2007","us":"user2"},"count":26},...]
+ *
  * to :  [ ['Years', 'user1', 'user2', 'user3', 'user4'],
- *      ['2001', 'num', 'num', 'num', 'num'],
- *      ['2002', 'num', 'num', 'num', 'num'],...]
+ *       ['2001',    'num',   'num',   'num',   'num'],
+ *       ['2002',    'num',   'num',   'num',   'num'],...]
+ *
  * @param msg  is the user json data
  * @param user is the user array we want to fetch
  * @returns {[*]}
  */
-function formatUserData(msg, user) {
-  let a = ['Year'];
-  let head = a.concat(user);
-  let data = [head];
+const formatUserData = (msg, user) => {
+  let a     = ['Year'];
+  let head  = a.concat(user);
+  let data  = [head];
   let dbody = [];
   msg.forEach(ele =>{
     dbody.push(ele._id.year);
@@ -126,7 +138,8 @@ function formatUserData(msg, user) {
   }
   dbody.forEach((dbodyEle, dbodyIdx) => {
     user.forEach((userEle, userIdx) => {
-      data.forEach((dataEle, dataIdx) => {
+	    //fill the empty elements with 0
+      data.forEach((dataEle) => {
         if((dbodyEle === dataEle[0]) && (dbody[dbodyIdx+1] === userEle)){
           dataEle[userIdx+1]=dbody[dbodyIdx+2];
         }
@@ -134,6 +147,7 @@ function formatUserData(msg, user) {
     });
   });
   let dLength = user.length+1;
+	//fill the empty elements with 0
   data.forEach((ele) => {
     if(ele.length<dLength){
       for(let i = 0, short = dLength-ele.length; i < short; i++){
@@ -149,11 +163,11 @@ function formatUserData(msg, user) {
 $(document).ready(function() {
   //set the full page setting
   $('#fullpage').fullpage({
-    sectionsColor: ['#1BBC9B', '#4bbfc3'],
-    anchors: ['helloPage', 'mostRev'],
-    menu: '#menu',
-    lockAnchors: false,
-    navigation: false,
+    sectionsColor:  ['#1BBC9B', '#4bbfc3'],
+    anchors:        ['helloPage', 'mostRev'],
+    menu:           '#menu',
+    lockAnchors:    false,
+    navigation:     false,
     scrollingSpeed: 700
   });
   // search bar
@@ -164,7 +178,7 @@ $(document).ready(function() {
     $.ajax({
       type: "get",
       dataType: "json",
-      url: "/getTitle",
+      url: "/searchTitle",
       data: key,
       success: function (msg) {
         infoBox.html('');
@@ -189,12 +203,20 @@ $(document).ready(function() {
         $('#topUser').empty();
         individual.empty();
         individual.append("<p>Title: "+msg[0]+"</p>");
-        individual.append("<p>New revisions get: "+msg[1]+"</p>");
-        individual.append("<p>Total revision number: "+JSON.parse(msg[2])[0].revNum+"</p>");
+        individual.append("<p>New revisions get: "
+                          +msg[1]
+                          +"</p>");
+        individual.append("<p>Total revision number: "
+                          +JSON.parse(msg[2])[0].revNum
+                          +"</p>");
         individual.append("<p>Top 5 users: </p>");
         let user = JSON.parse(msg[3]);
         for(let i of user){
-          individual.append("<p style='text-decoration: underline;'>"+i._id+": "+i.revNum+"</p>");
+          individual.append("<p style='text-decoration: underline;'>"
+                            +i._id
+                            +": "
+                            +i.revNum
+                            +"</p>");
           $('#topUser').append("<option>"+i._id+"</option>");
         }
         $.ajax({
@@ -235,12 +257,8 @@ $(document).ready(function() {
       'width':550,
       'height':400,
       backgroundColor: '#1BBC9B',
-      chartArea:{
-        backgroundColor: '#1BBC9B'
-      },
-      hAxis: {
-        textStyle:{color: '#000000'}
-      }
+      chartArea: {backgroundColor: '#1BBC9B'},
+      hAxis: {textStyle: {color: '#000000'}}
     };
     let chart = new google.charts.Bar($("#individual-fig")[0]);
     chart.draw(visData, google.charts.Bar.convertOptions(options));
@@ -251,15 +269,11 @@ $(document).ready(function() {
       indiviPieData
     );
     let options = {
-      chart: {
-        title: 'Individual static: '+$('#sText').val()
-      },
+      chart: {title: 'Individual static: '+$('#sText').val()},
       'width':550,
       'height':400,
       backgroundColor: '#1BBC9B',
-      hAxis: {
-        textStyle:{color: '#ffffff'}
-      }
+      hAxis: {textStyle: {color: '#ffffff'}}
     };
     let chart = new google.visualization.PieChart($("#individual-fig")[0]);
     chart.draw(visData, options);
@@ -291,76 +305,89 @@ $(document).ready(function() {
           'width':550,
           'height':400,
           backgroundColor: '#1BBC9B',
-          chartArea:{
-            backgroundColor: '#1BBC9B'
-          },
-          hAxis: {
-            textStyle:{color: '#000000'}
-          }
+          chartArea: {backgroundColor: '#1BBC9B' },
+          hAxis: {textStyle: {color: '#000000'}}
         };
         let chart = new google.charts.Bar($("#individual-fig")[0]);
         chart.draw(visData, google.charts.Bar.convertOptions(options));
       }
     });
   });
-  //rend the full-set text statics
-  $.ajax({
+	/**
+   * Find the max/min revision number article title
+	 */
+	$.ajax({
     type: "get",
     dataType: "json",
     url: "/revNumArticle",
     success: function (msg) {
       let info = $('.revNum');
-      let a = msg[0];
-      let b = msg[msg.length-1];
+      let maxRevNumArticle = msg[0];
+      let minRevNumArticle = msg[msg.length-1];
       info.html('');
-      info.append("<p >1.The article with the most number of revisions:<br/>  <span>"
-                  + a._id
-                  + "</span> <br/>Revision number: <span>"
-                  + a.revNum
+      info.append("<p >1.The article with the most number of revisions:"
+                  + "<br/>  <span>"
+                  + maxRevNumArticle._id
+                  + "</span> "
+                  + "<br/>Revision number: "
+                  + "<span>"
+                  + maxRevNumArticle.revNum
                   + "</span></p>");
-      info.append("<p >2.The article with the least number of revisions:<br/>  <span>"
-                  + b._id
-                  + "</span> <br/>Revision number: <span>"
-                  + b.revNum
+      info.append("<p >2.The article with the least number of revisions:"
+                  + "<br/>  <span>"
+                  + minRevNumArticle._id
+                  + "</span> "
+                  + "<br/>Revision number:"
+                  + " <span>"
+                  + minRevNumArticle.revNum
                   +"</span></p>");
     }
   });
+	/**
+   * The article edited by largest group of registered users
+   * The article edited by smallest group of registered users
+	 */
   $.ajax({
     type: "get",
     dataType: "json",
-    url: "/registerNumArticle",
+    url: "/registerUserRevNumArticle",
     success: function (msg) {
       let info = $('.registerUser');
       let a = msg[0];
       let b = msg[msg.length-1];
-      info.append("<p >3.The article edited by largest group of registered users:<br/>  <span>"
+      info.append("<p >3.The article edited by largest group of registered users:"
+                  + "<br/>  <span>"
                   + a._id
                   + "</span> <br/>User number: <span>"
                   + a.uniqueUserCount
                   +"</p>");
-      info.append("<p >4.The article edited by smallest group of registered users:<br/>  <span>"
+      info.append("<p >4.The article edited by smallest group of registered users:"
+                  + "<br/>  <span>"
                   + b._id
                   + "</span> <br/>User number: <span>"
                   + b.uniqueUserCount
                   +"</p>");
     }
   });
-  $.ajax({
+	/**
+   * Find the max/min history of the article
+	 */
+	$.ajax({
     type: "get",
     dataType: "json",
     url: "/historyArticle",
     success: function (msg) {
       let info = $('.history');
-      let a = msg[0];
-      let b = msg[msg.length-1];
+      let minHistoryArticle = msg[0];
+      let maxHistoryArticle = msg[msg.length-1];
       info.append("<p >5.The article with the shortest history:<br/>  <span>"
-                  + a._id
+                  + minHistoryArticle._id
                   + "</span> <br/>Start from: <span>"
-                  + a.firRev.toString().slice(0,10)
+                  + minHistoryArticle.firRev.toString().slice(0,10)
                   +"</span></p>");
       info.append("<p >6.The article with the longest history:<br/>  <span>"
-                  + b._id +"</span> <br/>Start from: <span>"
-                  + b.firRev.toString().slice(0,10)
+                  + maxHistoryArticle._id +"</span> <br/>Start from: <span>"
+                  + maxHistoryArticle.firRev.toString().slice(0,10)
                   +"</span></p>");
     }
   });
@@ -396,12 +423,8 @@ $(document).ready(function() {
       'width':600,
       'height':480,
       backgroundColor: '#4bbfc3',
-      chartArea:{
-        backgroundColor: '#4bbfc3'
-      },
-      hAxis: {
-        textStyle:{color: '#000000'}
-      }
+      chartArea: {backgroundColor: '#4bbfc3'},
+      hAxis: {textStyle: {color: '#000000'}}
     };
     let chart = new google.charts.Bar($("#fullInfo-fig")[0]);
     chart.draw(visData, google.charts.Bar.convertOptions(options));
@@ -412,24 +435,17 @@ $(document).ready(function() {
       allPieData
     );
     let options = {
-      chart: {
-        title: 'Total static'
-      },
+      chart: {title: 'Total static'},
       'width':600,
       'height':480,
       backgroundColor: '#4bbfc3',
-      hAxis: {
-        textStyle:{color: '#ffffff'}
-      }
+      hAxis: {textStyle: {color: '#ffffff'} }
     };
     let chart = new google.visualization.PieChart($("#fullInfo-fig")[0]);
     chart.draw(visData, options);
   });
 });
-/**
- *Log: the dynamic extend html need to rebind the event!
- *Ref:http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
- */
+//search bar select and fade
 $(document).on('click','.titSelect',function(){
   $('#sText').val($(this).html());
   $(this).parent('#infoBox').fadeToggle("slow");

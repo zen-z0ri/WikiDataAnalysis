@@ -2,22 +2,22 @@
  * Created by tung on 12/05/17.
  */
 'use strict';
-const mongoose = require('./db');
-const fs = require('./fs');
-const request = require('request');
+let mongoose = require('./db');
+let fs       = require('./fs');
+let request  = require('request');
 
 //define the schema
-const AnalySchema = new mongoose.Schema(
-  {title: String,
+const AnalySchema = new mongoose.Schema({
+  title:     String,
   timestamp: String,
-  user: String,
-  revid: Number,
-  parentid: Number,
-  size: Number,
-  sha1: String,
-  anon: String}, {
-  versionKey: false }
-);
+  user:      String,
+  revid:     Number,
+  parentid:  Number,
+  size:      Number,
+  sha1:      String,
+  anon:      String}, {
+  versionKey: false
+});
 
 /**
  * Used to search title for search box
@@ -26,12 +26,12 @@ const AnalySchema = new mongoose.Schema(
  * @returns {Promise}
  */
 AnalySchema.statics.searchTitle = function (tit, callback) {
-  let reg = '^'+tit+'.*';
+  let reg  = '^'+tit+'.*';
   let treg = new RegExp(reg,'i');
   return this.aggregate([
     {$match: {title: treg} },
     {$group: {_id: "$title"} },
-    {$sort: {title: -1} },
+    {$sort:  {title: -1} },
     {$limit: 5}
   ]).exec(callback);
 };
@@ -39,6 +39,7 @@ AnalySchema.statics.searchTitle = function (tit, callback) {
 /**
  * Methods used in full set statistic
  */
+
 /**
  * Used to find the revision numbers statistic in full set
  * of each article
@@ -61,6 +62,7 @@ AnalySchema.statics.eachArticleRevisionNum = function (callback, tit) {
     {$sort: {revNum: -1} }//large to small
   ]).exec(callback);
 };
+
 /**
  * Used to find the article edited by registered users in full set
  * registered users: is the users are not anons
@@ -76,11 +78,14 @@ AnalySchema.statics.registerUserEachArticle = function (callback) {
      _id: "$title",
      uniqUser: {$addToSet: "$user"}
    }},
-   {$project: {"title": 1,
-     uniqueUserCount: {$size: "$uniqUser"} } },
+   {$project: {
+     "title": 1,
+     uniqueUserCount: {$size: "$uniqUser"}
+   }},
    {$sort: {uniqueUserCount: -1} }//large to small
  ]).exec(callback)
 };
+
 /**
  * Used to find the history of each article in full set
  * @param callback
@@ -102,6 +107,7 @@ AnalySchema.statics.historyForArticle = function (callback) {
  * Or used to show the individual article four user types
  * static
  */
+
 /**
  * Used to show the admin statistic
  * (if both in admin and bot, treat as admin)
@@ -116,9 +122,8 @@ AnalySchema.statics.adminStatistic = function (callback, tit) {
   return this.aggregate([
     {$match: {
       $and: [
-        {user: {$in: fs.admList} },
-        {title: trep}
-      ]
+        {user: {$in: fs.admins} },
+        {title: trep}]
     }},
     {$project: {
       Year: {$substr: ["$timestamp", 0, 4] },
@@ -130,6 +135,7 @@ AnalySchema.statics.adminStatistic = function (callback, tit) {
     {$sort: {_id : 1} }
   ]).exec(callback);
 };
+
 /**
  * Used to show the bot statistic
  * (if both in admin and bot, treat as admin)
@@ -144,10 +150,9 @@ AnalySchema.statics.botStatistic = function (callback, tit) {
   return this.aggregate([
     {$match: {
       $and: [
-        {user: {$nin: fs.admList} },
-        {user: {$in: fs.botList} },
-        {title: trep}
-      ]
+        {user: {$nin: fs.admins} },
+        {user: {$in: fs.bots} },
+        {title: trep}]
     }},
     {$project: {
       Year: {$substr: ["$timestamp", 0, 4] },
@@ -159,6 +164,7 @@ AnalySchema.statics.botStatistic = function (callback, tit) {
     {$sort: {_id: 1} }
   ]).exec(callback);
 };
+
 /**
  * Used to show the normal user statistic
  * normal user: (NOT admin)&&(NOT bot)&&(NOT anon)
@@ -173,11 +179,10 @@ AnalySchema.statics.normalUserStatistic = function (callback, tit) {
   return this.aggregate([
     {$match: {
       $and: [
-        {user: {$nin: fs.botList} },
-        {user: {$nin: fs.admList} },
+        {user: {$nin: fs.bots} },
+        {user: {$nin: fs.admins} },
         {anon: {$exists: false} },
-        {title: trep}
-      ]
+        {title: trep}]
     }},
     {$project: {
       Year: {$substr: ["$timestamp", 0, 4 ]},
@@ -204,8 +209,7 @@ AnalySchema.statics.anonStatistic = function (callback, tit) {
     {$match: {
       $and: [
         {anon: {$exists: true} },
-        {title: trep}
-      ]
+        {title: trep}]
     }},
     {$project: {
       Year: {$substr: ["$timestamp", 0, 4] },
@@ -227,10 +231,11 @@ AnalySchema.statics.anonStatistic = function (callback, tit) {
 AnalySchema.statics.lastRevisionTime = function (callback, tit) {
   let trep = tit.trim();
   return this.find({title: trep})
-            .sort({timestamp: -1})
-            .limit(1)
-            .exec(callback);
+             .sort({timestamp: -1})
+             .limit(1)
+             .exec(callback);
 };
+
 /**
  * request Wiki
  * @param tit request for the special title
@@ -238,9 +243,11 @@ AnalySchema.statics.lastRevisionTime = function (callback, tit) {
  * @param callback
  */
 AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
+  //enter point
   let wikiEndpoint = 'https://en.wikipedia.org/w/api.php';
   let titStr = "titles="+tit.trim().split(' ').join('%20');
   let rvstartStr = "rvstart="+rvstart.toISOString();
+  // REST parameters
   let parameters = ["action=query",
                     "format=json",
                     "prop=revisions",
@@ -255,7 +262,7 @@ AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
     Accept: 'application/json',
     'Accept-Charset': 'utf-8'
   };
-  request(options, function (err, res, data) {
+  request(options, (err, res, data) => {
     if (err) {
       console.log('Error:', err);
     } else if (res.statusCode !== 200) {
@@ -270,6 +277,7 @@ AnalySchema.statics.requestWiki = function (tit, rvstart, callback) {
     }
   });
 };
+
 /**
  * find the five TOP user of a individual article
  * @param tit
@@ -280,11 +288,10 @@ AnalySchema.statics.topUser = function (tit, callback){
   return this.aggregate([
     {$match: {
       $and: [
-        {user: {$nin: fs.botList} },
-        {user: {$nin: fs.admList} },
+        {user: {$nin: fs.bots} },
+        {user: {$nin: fs.admins} },
         {anon: {$exists: false} },
-        {title: tit}
-      ]
+        {title: tit}]
     }},
     {$group: {
       _id: "$user",
@@ -294,6 +301,7 @@ AnalySchema.statics.topUser = function (tit, callback){
     {$limit: 5}//large to small
   ]).exec(callback);
 };
+
 /**
  * get the users revision for a individual article by year
  * @param tit title
@@ -306,8 +314,7 @@ AnalySchema.statics.individualUserStatic = function (tit, user, callback){
     {$match: {
       $and: [
         {user: {$in: user} },
-        {title: tit}
-      ]
+        {title: tit}]
     }},
     {$group: {
       _id: {year: {$substr: ["$timestamp", 0, 4]}, us :"$user" },

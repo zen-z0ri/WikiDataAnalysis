@@ -3,7 +3,6 @@
  */
 'use strict';
 const AnalyWiki = require('../models/analy.js');
-const url = require('url');
 
 //render page
 const showPage = (req,res) => res.render('fullPage.pug');
@@ -12,7 +11,7 @@ const showPage = (req,res) => res.render('fullPage.pug');
  * @param req
  * @param res
  */
-function getTitle(req,res){
+const getTitle = (req,res) => {
   let sKey = req.query.sText;
   AnalyWiki.searchTitle(sKey,(err,result)=>{
     if(err) console.log("error happened at search titile");
@@ -23,7 +22,7 @@ function getTitle(req,res){
   });
 }
 // Three methods get the full set statistic result for Text
-function eachArticleRevisionNum(req,res) {
+const eachArticleRevisionNum = (req,res) => {
   AnalyWiki.eachArticleRevisionNum((err,result)=>{
     if(err) console.log(err.message);
     else {
@@ -32,7 +31,7 @@ function eachArticleRevisionNum(req,res) {
     }
   });
 }
-function registerUserEachArticle(req,res) {
+const registerUserEachArticle = (req,res) => {
   AnalyWiki.registerUserEachArticle((err,result)=>{
     if(err) console.log(err.message);
     else {
@@ -41,7 +40,7 @@ function registerUserEachArticle(req,res) {
     }
   });
 }
-function historyForArticle(req,res) {
+const historyForArticle = (req,res) => {
   AnalyWiki.historyForArticle((err,result)=>{
     if(err) console.log(err.message);
     else {
@@ -61,29 +60,29 @@ function historyForArticle(req,res) {
  * @param title
  * @returns {Promise.<void>}
  */
-async function fullSetUserData(req, res, title) {
+const fullSetUserData = async (req, res, title) => {
   res.writeHead(200, {"Content-Type": "text"});
   await AnalyWiki.adminStatistic((err,result) => {
     if (err) console.log(err.message);
-    else  res.write(JSON.stringify(result) + '|');
+    else res.write(JSON.stringify(result) + '|');
   }, title);
   await AnalyWiki.botStatistic((err,result) => {
     if (err) console.log(err.message);
-    else  res.write(JSON.stringify(result) + '|');
+    else res.write(JSON.stringify(result) + '|');
   }, title);
   await AnalyWiki.normalUserStatistic((err,result) => {
     if (err) console.log(err.message);
-    else  res.write(JSON.stringify(result) + '|');
+    else res.write(JSON.stringify(result) + '|');
   }, title);
   await AnalyWiki.anonStatistic((err,result) => {
     if (err) console.log(err.message);
-    else  res.write(JSON.stringify(result));
+    else res.write(JSON.stringify(result));
   }, title);
   res.end();
 }
 
 //check the two time gap
-function daysBetween(time1, time2) {
+const daysBetween = (time1, time2) => {
   return (time1-time2)/(3600*24*1000);
 }
 
@@ -95,7 +94,7 @@ function daysBetween(time1, time2) {
  * @param revisions
  * @returns {Promise.<void>}
  */
-async function writeData(res, title, revisions) {
+const writeData = async (res, title, revisions) => {
   res.writeHead(200, {"Content-Type": "text"});
   res.write(title+'|'+revisions.length+'|');
   await AnalyWiki.eachArticleRevisionNum((err, result) =>{
@@ -116,9 +115,11 @@ async function writeData(res, title, revisions) {
  * @param req
  * @param res
  */
-function articleFetch(req,res){
+const articleFetch = (req,res) => {
+  //search text
   let title = req.query.sText;
   console.log("search title "+title);
+  //check if the last revision have passed the out-date-threshold (24over)
   AnalyWiki.lastRevisionTime((err,result)=>{
     if(err) console.log("error happened at search title");
     else {
@@ -126,9 +127,11 @@ function articleFetch(req,res){
         let current = new Date();
         console.log('The last revision is at '+result[0].timestamp);
         let lastTime = new Date(Date.parse(result[0].timestamp));
+        // out of date
         if(daysBetween(current, lastTime)>1){ 
           console.log(title+" is out of date");
           AnalyWiki.requestWiki(title, lastTime, function (revisions) {
+            // but no new revision at wiki
             if(revisions.length === 0){
               console.log("It's already up to date");
               writeData(res, title, revisions);
@@ -140,7 +143,7 @@ function articleFetch(req,res){
               writeData(res, title, revisions);
             }
           });
-        }else{
+        }else{ //not out of date
           AnalyWiki.requestWiki(title, lastTime, function () {
             writeData(res, title, revisions);
             console.log("The DB is up to date.")
@@ -161,7 +164,7 @@ function articleFetch(req,res){
  * @param req
  * @param res
  */
-function individualArticleData(req, res){
+const individualArticleData = (req, res) =>{
   let title = req.query.sText;
   console.log("Get data of: "+title);
   fullSetUserData(req, res, title);
@@ -172,7 +175,7 @@ function individualArticleData(req, res){
  * @param req
  * @param res
  */
-function userStatic(req, res) {
+const userStatic = (req, res) => {
   let title = req.query.title;
   let user = req.query.user;
   AnalyWiki.individualUserStatic(title, user, (err, result) => {
