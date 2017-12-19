@@ -1,8 +1,8 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict';
-const AnalyWiki = require('../models/analy.js');
+
+import AnalyWiki from '../models/analy';
 
 //render page
 const showPage = (req,res) => res.render('fullPage.pug');
@@ -184,14 +184,14 @@ const userStatic = (req, res) => {
   });
 }
 module.exports={
-  showPage:showPage,
-  getTitle:getTitle,
-  eachArticleRevisionNum:eachArticleRevisionNum,
-  registerUserEachArticle:registerUserEachArticle,
-  historyForArticle:historyForArticle,
-  fullSetUserData:fullSetUserData,
-  articleFetch:articleFetch,
-  individualArticleData:individualArticleData,
-  userStatic:userStatic
+  showPage,
+  getTitle,
+  eachArticleRevisionNum,
+  registerUserEachArticle,
+  historyForArticle,
+  fullSetUserData,
+  articleFetch,
+  individualArticleData,
+  userStatic
 };
 

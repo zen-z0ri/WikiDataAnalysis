@@ -1,7 +1,7 @@
 {
   "name": "wiki-analysis",
   "version": "1.0.0",
-  "description": "node.js mongo D3.js",
+  "description": "node.js mongoDB",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/zen-z0ri/WikiDataAnalysis#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
@@ -25,5 +26,14 @@
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.1",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   }
 }

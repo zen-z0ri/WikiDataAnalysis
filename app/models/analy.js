@@ -1,10 +1,10 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict';
-let mongoose = require('./db');
-let fs       = require('./fs');
-let request  = require('request');
+
+import mongoose from './db';
+import fs from './fs';
+import request from 'request';
 
 //define the schema
 const AnalySchema = new mongoose.Schema({

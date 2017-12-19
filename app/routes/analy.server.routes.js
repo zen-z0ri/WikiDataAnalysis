@@ -1,10 +1,11 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict';
-let express    = require('express');
-let controller = require('../controllers/analy.server.controller');
-let router     = express.Router();
+
+import express from 'express';
+import controller from '../controllers/analy.server.controller';
+
+let router = express.Router();
 
 //render page
 router.get('/',controller.showPage);

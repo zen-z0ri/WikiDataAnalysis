@@ -1,11 +1,12 @@
 /**
  * Created by tung on 12/05/17.
  */
-'use strict';
-let express    = require('express');
-let path       = require('path');
-let bodyParser = require('body-parser');
-let staRoutes  = require('./app/routes/analy.server.routes');
+
+import 'babel-polyfill';
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import staRoutes from './app/routes/analy.server.routes';
 
 let app = express();
 

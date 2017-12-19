@@ -2,8 +2,8 @@
  * Created by tung on 11/05/17.
  * connect to the mongoose
  */
-'use strict';
-let mongoose = require("mongoose");
+
+import mongoose from 'mongoose';
 
 mongoose.connect('mongodb://localhost/wikiAnalysis', function () {
   console.log('mongodb connected');
