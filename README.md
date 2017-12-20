@@ -34,7 +34,9 @@ then download.
      8. A pie chart shows the distribution of 4 types users.
      
     ```
-    <iframe height=936 width=1837 src="https://drive.google.com/open?id=1_U5AEkWImpDQd1bmfbwMa3mCi5xMh2ji">
+<img src="./ReadmeImg/overall-1.bmp" /><br/>
+<img src="./ReadmeImg/overall-2.bmp" /><br/>
+
 4. For individual article statistics, this app provides: 
     ```
     1. A search bar to get the title of the article.
@@ -48,7 +50,10 @@ then download.
     5. A bar chart shows the distribution of selected users by year of this article.
     
     6.  A pie chart shows the distribution of 4 types users of this article.
-    ```  
-     <iframe height=936 width=1837 src="https://drive.google.com/open?id=1uQBRlcdFU0p_BSTEjHYw0dHb9VL841Jx">
+    ``` 
+ <img src="./ReadmeImg/ind-1.bmp" /><br/>
+ <img src="./ReadmeImg/ind-2.bmp" /><br/>
+ <img src="./ReadmeImg/ind-3.bmp" /><br/>
+ 
 5. Revisions data can be found at: [revisions](https://drive.google.com/open?id=17-KZoFKM1fpWOkLw80NZejn2rXtu3Og_)
      
